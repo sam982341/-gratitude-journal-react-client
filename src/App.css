@@ -3,6 +3,7 @@ body {
 	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
 		'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
 		sans-serif;
+	background-color: #e6e6e6;
 }
 
 .container {
@@ -11,5 +12,26 @@ body {
 }
 
 .nav-container {
-	margin: auto;
+	color: #757575;
+	background-color: #fff;
+	width: 100%;
+	display: flex;
+	justify-content: center;
+}
+
+.nav {
+	background-color: #fff;
+}
+
+.signup {
+	color: purple;
+	font-size: 200%;
+}
+
+a {
+	text-decoration: none;
+}
+
+.logo {
+	height: 30px;
 }

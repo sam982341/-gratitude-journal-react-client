@@ -17,7 +17,12 @@ export default function Navbar() {
 					<Button color="inherit" component={Link} to="/login">
 						Login
 					</Button>{' '}
-					<Button color="inherit" component={Link} to="/signup">
+					<Button
+						color="inherit"
+						component={Link}
+						to="/signup"
+						className="signup"
+					>
 						signup
 					</Button>
 				</Toolbar>
