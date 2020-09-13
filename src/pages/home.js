@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import Post from '../components/Post';
-import Link from 'react-router-dom/Link';
 
 import Grid from '@material-ui/core/grid';
 
@@ -27,10 +26,10 @@ class home extends Component {
 	render() {
 		let recentPostsMarkup = this.state.posts ? (
 			this.state.posts.map((post) => {
-				return <Post post={post} />;
+				return <Post key={post.postId} post={post} />;
 			})
 		) : (
-			<p>Not Working...</p>
+			<p>Loading...</p>
 		);
 		return (
 			<Grid container spacing={10}>

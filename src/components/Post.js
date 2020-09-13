@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import withStyles from '@material-ui/core/styles/withStyles';
-import Link from 'react-router-dom/Link';
+import { Link } from 'react-router-dom';
+import dayjs from 'dayjs';
+import relativeTime from 'dayjs/plugin/relativeTime';
 
 // Mui Stuff
 import Card from '@material-ui/core/Card';
@@ -14,9 +16,14 @@ const styles = {
 	card: {
 		display: 'flex',
 		marginBottom: 20,
+		marginTop: 20,
 	},
 	image: {
-		minWidth: 200,
+		width: 100,
+		height: 100,
+		borderRadius: '50%',
+		marginTop: 10,
+		marginLeft: 15,
 	},
 	content: {
 		padding: 25,
@@ -26,6 +33,7 @@ const styles = {
 
 class Post extends Component {
 	render() {
+		dayjs.extend(relativeTime);
 		const {
 			classes,
 			post: {
@@ -45,7 +53,7 @@ class Post extends Component {
 					title="Profile Image"
 					className={classes.image}
 				/>
-				<CardContent class={classes.content}>
+				<CardContent className={classes.content}>
 					<Typography
 						color="primary"
 						variant="h5"
@@ -54,7 +62,7 @@ class Post extends Component {
 					>
 						{userHandle}
 					</Typography>
-					<Typography variant="body2">{createdAt}</Typography>
+					<Typography variant="body2">{dayjs(createdAt).fromNow()}</Typography>
 					<Typography variant="body1">{body}</Typography>
 				</CardContent>
 			</Card>
