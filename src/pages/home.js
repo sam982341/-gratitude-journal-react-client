@@ -37,7 +37,7 @@ class home extends Component {
 					{recentPostsMarkup}
 				</Grid>
 				<Grid item sm={4} xs={12}>
-					<p>Profile</p>
+					<p>Your Profile</p>
 				</Grid>
 			</Grid>
 		);

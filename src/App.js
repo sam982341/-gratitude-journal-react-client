@@ -17,7 +17,7 @@ import signup from './pages/signup';
 const theme = createMuiTheme({
 	palette: {
 		primary: {
-			main: '#9c27b0',
+			main: '#7e208f',
 		},
 		secondary: {
 			main: '#e1bee7',
