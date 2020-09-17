@@ -12,6 +12,10 @@ import Button from '@material-ui/core/Button';
 import withStyles from '@material-ui/core/styles/withStyles';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
+// Redux
+import { connect } from 'react-redux';
+import { loginUser } from '../redux/actions/userActions';
+
 const styles = (theme) => ({
 	...theme.global,
 });
@@ -26,12 +30,19 @@ class login extends Component {
 		};
 	}
 
+	componentWillReceiveProps(nextProps) {
+		if (nextProps.UI.errors) {
+			this.setState({ errors: nextProps.UI.errors });
+		}
+	}
+
 	handleSubmit = (event) => {
 		event.preventDefault();
 		const userData = {
 			email: this.state.email,
 			password: this.state.password,
 		};
+		this.props.loginUser(userData, this.props.history);
 	};
 
 	handleChange = (event) => {
@@ -41,8 +52,11 @@ class login extends Component {
 	};
 
 	render() {
-		const { classes } = this.props;
-		const { errors, loading } = this.state;
+		const {
+			classes,
+			UI: { loading },
+		} = this.props;
+		const { errors } = this.state;
 		return (
 			<Grid container className={classes.form}>
 				<Grid item sm />
@@ -107,6 +121,21 @@ class login extends Component {
 
 login.propTypes = {
 	classes: PropTypes.object.isRequired,
+	loginUser: PropTypes.func.isRequired,
+	user: PropTypes.object.isRequired,
+	UI: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(login);
+const mapStateToProps = (state) => ({
+	user: state.user,
+	UI: state.UI,
+});
+
+const mapActionsToProps = {
+	loginUser,
+};
+
+export default connect(
+	mapStateToProps,
+	mapActionsToProps
+)(withStyles(styles)(login));

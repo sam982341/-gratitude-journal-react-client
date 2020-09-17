@@ -26,7 +26,9 @@ export const loginUser = (userData, history) => (dispatch) => {
 
 export const getUserData = () => (dispatch) => {
 	axios
-		.get('/user')
+		.get(
+			'https://us-central1-gratitudejournal-a722b.cloudfunctions.net/api/user'
+		)
 		.then((res) => {
 			dispatch({
 				type: SET_USER,
