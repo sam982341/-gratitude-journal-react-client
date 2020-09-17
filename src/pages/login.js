@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import AppIcon from '../images/pray.png';
+import lotus from '../images/lotus.png';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 
@@ -10,36 +10,11 @@ import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import withStyles from '@material-ui/core/styles/withStyles';
-import { red } from '@material-ui/core/colors';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
-const styles = {
-	form: {
-		textAlign: 'center',
-	},
-	appIcon: {
-		height: 50,
-		margin: '20px auto 20px auto',
-	},
-	pagetitle: {
-		margin: '10px auto 10px auto',
-	},
-	textField: {
-		margin: '10px auto 10px auto',
-	},
-	button: {
-		margin: '20px auto 20px auto',
-		position: 'relative',
-	},
-	customError: {
-		color: 'red',
-		fontSize: '0.8rem',
-		marginTop: 10,
-	},
-	progress: {
-		position: 'absolute',
-	},
-};
+const styles = (theme) => ({
+	...theme.global,
+});
 
 class login extends Component {
 	constructor() {
@@ -47,38 +22,16 @@ class login extends Component {
 		this.state = {
 			email: '',
 			password: '',
-			loading: false,
 			errors: {},
 		};
 	}
 
 	handleSubmit = (event) => {
 		event.preventDefault();
-		this.setState({
-			loading: true,
-		});
 		const userData = {
 			email: this.state.email,
 			password: this.state.password,
 		};
-		axios
-			.post(
-				'https://us-central1-gratitudejournal-a722b.cloudfunctions.net/api/login',
-				userData
-			)
-			.then((res) => {
-				console.log(res.data);
-				this.setState({
-					loading: false,
-				});
-				this.props.history.push('/');
-			})
-			.catch((err) => {
-				this.setState({
-					errors: err.response.data,
-					loading: false,
-				});
-			});
 	};
 
 	handleChange = (event) => {
@@ -94,7 +47,7 @@ class login extends Component {
 			<Grid container className={classes.form}>
 				<Grid item sm />
 				<Grid item sm>
-					<img src={AppIcon} alt="pray" className={classes.appIcon} />
+					<img src={lotus} alt="pray" className={classes.appIcon} />
 					<Typography variant="h2" className={classes.pageTitle}>
 						Login
 					</Typography>
