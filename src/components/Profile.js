@@ -11,6 +11,7 @@ import CreateIcon from '@material-ui/icons/Create';
 import Paper from '@material-ui/core/Paper';
 import MuiLink from '@material-ui/core/Link';
 import Typography from '@material-ui/core/Typography';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 // Mui Icons
 import LocationOn from '@material-ui/icons/LocationOn';
@@ -23,6 +24,7 @@ import { connect } from 'react-redux';
 const styles = (theme) => ({
 	paper: {
 		padding: 20,
+		position: 'fixed',
 	},
 	profile: {
 		'& .image-wrapper': {
@@ -66,6 +68,7 @@ const styles = (theme) => ({
 			margin: '20px 10px',
 		},
 	},
+	progress: {},
 });
 
 class Profile extends Component {
@@ -150,7 +153,7 @@ class Profile extends Component {
 				</Paper>
 			)
 		) : (
-			<p>Loading...</p>
+			<CircularProgress className={classes.progress} />
 		);
 
 		return profileMarkup;

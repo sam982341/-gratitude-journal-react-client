@@ -13,14 +13,12 @@ export const loginUser = (userData, history) => (dispatch) => {
 	axios
 		.post('/login', userData)
 		.then((res) => {
-			console.log('Login Working');
 			setAuthorizationHeader(res.data.token);
 			dispatch(getUserData());
 			dispatch({ type: CLEAR_ERRORS });
 			history.push('/');
 		})
 		.catch((err) => {
-			console.log('Login Not Working');
 			dispatch({
 				type: SET_ERRORS,
 				payload: err.response.data,
@@ -33,14 +31,12 @@ export const getUserData = () => (dispatch) => {
 	axios
 		.get('/user')
 		.then((res) => {
-			console.log('getUserData Working');
 			dispatch({
 				type: SET_USER,
 				payload: res.data,
 			});
 		})
 		.catch((err) => {
-			console.log('getUserData Not Working');
 			console.log(err);
 		});
 };
@@ -56,14 +52,12 @@ export const signupUser = (newUserData, history) => (dispatch) => {
 	axios
 		.post('/signup', newUserData)
 		.then((res) => {
-			console.log('signUp Working');
 			setAuthorizationHeader(res.data.token);
 			dispatch(getUserData());
 			dispatch({ type: CLEAR_ERRORS });
 			history.push('/');
 		})
 		.catch((err) => {
-			console.log('signUp Not Working');
 			dispatch({
 				type: SET_ERRORS,
 				payload: err.response.data,

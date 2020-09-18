@@ -3,7 +3,9 @@ import axios from 'axios';
 import Post from '../components/Post';
 import Profile from '../components/Profile';
 
+// Mui Stuff
 import Grid from '@material-ui/core/grid';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 // Add Input component box as first post
 
@@ -32,7 +34,7 @@ class home extends Component {
 				return <Post key={post.postId} post={post} />;
 			})
 		) : (
-			<p>Loading...</p>
+			<CircularProgress />
 		);
 		return (
 			<Grid container spacing={10}>
