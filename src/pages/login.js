@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import lotus from '../images/lotus.png';
-import axios from 'axios';
 import { Link } from 'react-router-dom';
 
 // Mui

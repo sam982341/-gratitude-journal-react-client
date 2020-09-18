@@ -5,8 +5,6 @@ import relativeTime from 'dayjs/plugin/relativeTime';
 
 // Mui Stuff
 import Card from '@material-ui/core/Card';
-import CardActionArea from '@material-ui/core/CardActionArea';
-import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import { Typography } from '@material-ui/core';
@@ -17,8 +15,10 @@ const styles = {
 		display: 'flex',
 		marginBottom: 20,
 		marginTop: 20,
+		transition: '0.3s',
 		'&:hover': {
-			background: '#f1f0f0',
+			//background: '#f1f0f0',
+			background: '#f8ecfa',
 		},
 	},
 	image: {

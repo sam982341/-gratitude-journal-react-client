@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import Post from '../components/Post';
+import Profile from '../components/Profile';
 
 import Grid from '@material-ui/core/grid';
+
+// Add Input component box as first post
 
 class home extends Component {
 	state = {
@@ -37,7 +40,7 @@ class home extends Component {
 					{recentPostsMarkup}
 				</Grid>
 				<Grid item sm={4} xs={12}>
-					<p>Your Profile</p>
+					<Profile />
 				</Grid>
 			</Grid>
 		);

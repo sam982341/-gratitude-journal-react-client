@@ -8,6 +8,9 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Button from '@material-ui/core/Button';
 import withStyles from '@material-ui/core/styles/withStyles';
 
+// Mui Icons
+import CreateIcon from '@material-ui/icons/Create';
+
 const styles = {
 	logoContainer: {
 		height: 55,
@@ -15,6 +18,8 @@ const styles = {
 		display: 'flex',
 		alignItems: 'center',
 		justifyContent: 'center',
+		transition: '0.3s',
+		borderRadius: '50%',
 		'&:hover': {
 			background: '#fce8ff',
 			borderRadius: '50%',
@@ -63,6 +68,7 @@ class Navbar extends Component {
 					>
 						signup
 					</Button>
+					<CreateIcon color="primary" />
 				</Toolbar>
 			</AppBar>
 		);
