@@ -16,9 +16,7 @@ class home extends Component {
 
 	componentDidMount() {
 		axios
-			.get(
-				'https://us-central1-gratitudejournal-a722b.cloudfunctions.net/api/posts'
-			)
+			.get('/posts')
 			.then((res) => {
 				this.setState({
 					posts: res.data,

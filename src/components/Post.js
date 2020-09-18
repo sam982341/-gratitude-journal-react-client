@@ -17,7 +17,6 @@ const styles = {
 		marginTop: 20,
 		transition: '0.3s',
 		'&:hover': {
-			//background: '#f1f0f0',
 			background: '#f8ecfa',
 		},
 	},
@@ -27,6 +26,11 @@ const styles = {
 		borderRadius: '50%',
 		marginTop: 10,
 		marginLeft: 15,
+		opacity: 1,
+		transition: '0.3s',
+		'&:hover': {
+			opacity: 0.8,
+		},
 	},
 	content: {
 		padding: 25,
@@ -34,6 +38,10 @@ const styles = {
 	},
 	userHandle: {
 		color: '#757575',
+		transition: '0.3s',
+		'&:hover': {
+			textDecoration: 'underline',
+		},
 	},
 	gratefulText: {
 		color: '#7e208f',
