@@ -6,8 +6,16 @@ import Profile from '../components/Profile';
 // Mui Stuff
 import Grid from '@material-ui/core/grid';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import withStyles from '@material-ui/core/styles/withStyles';
 
-// Add Input component box as first post
+const styles = {
+	progressContainerPosts: {
+		display: 'flex',
+		alignItems: 'center',
+		justifyContent: 'center',
+		marginTop: 60,
+	},
+};
 
 class home extends Component {
 	state = {
@@ -26,13 +34,17 @@ class home extends Component {
 				console.log(err);
 			});
 	}
+
 	render() {
+		const { classes } = this.props;
 		let recentPostsMarkup = this.state.posts ? (
 			this.state.posts.map((post) => {
 				return <Post key={post.postId} post={post} />;
 			})
 		) : (
-			<CircularProgress />
+			<div className={classes.progressContainerPosts}>
+				<CircularProgress />
+			</div>
 		);
 		return (
 			<Grid container spacing={10}>
@@ -47,4 +59,4 @@ class home extends Component {
 	}
 }
 
-export default home;
+export default withStyles(styles)(home);

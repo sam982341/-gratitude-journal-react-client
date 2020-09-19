@@ -21,9 +21,7 @@ export default function (state = initialState, actions) {
 				authenticated: true,
 			};
 		case SET_UNAUTHENTICATED:
-			return {
-				initialState,
-			};
+			return initialState;
 		case SET_USER:
 			return {
 				authenticated: true,
