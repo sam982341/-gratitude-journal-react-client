@@ -3,6 +3,8 @@ import {
 	SET_AUTHENTICATED,
 	SET_UNAUTHENTICATED,
 	LOADING_USER,
+	LIKE_POST,
+	UNLIKE_POST,
 } from '../types';
 
 const initialState = {
@@ -32,6 +34,24 @@ export default function (state = initialState, actions) {
 			return {
 				...state,
 				loading: true,
+			};
+		case LIKE_POST:
+			return {
+				...state,
+				likes: [
+					...state.likes,
+					{
+						userHandle: state.credentials.handle,
+						postId: actions.payload.postId,
+					},
+				],
+			};
+		case UNLIKE_POST:
+			return {
+				...state,
+				likes: state.likes.filter(
+					(like) => like.postId !== actions.payload.postId
+				),
 			};
 		default:
 			return state;

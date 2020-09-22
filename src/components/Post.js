@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
+import PropTypes from 'prop-types';
+import CustomIconButton from '../util/CustomIconButton';
+import DeletePost from './DeletePost';
 
 // Mui Stuff
 import Card from '@material-ui/core/Card';
@@ -10,8 +13,18 @@ import CardMedia from '@material-ui/core/CardMedia';
 import { Typography } from '@material-ui/core';
 import withStyles from '@material-ui/core/styles/withStyles';
 
+// MUI Icons
+import ChatIcon from '@material-ui/icons/Chat';
+import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
+import FavoriteIcon from '@material-ui/icons/Favorite';
+
+// Redux
+import { connect } from 'react-redux';
+import { likePost, unlikePost, deletePost } from '../redux/actions/dataActions';
+
 const styles = {
 	card: {
+		position: 'relative',
 		display: 'flex',
 		marginBottom: 20,
 		marginTop: 20,
@@ -21,11 +34,11 @@ const styles = {
 		},
 	},
 	image: {
-		width: 100,
-		height: 100,
+		width: 130,
+		height: 130,
 		borderRadius: '50%',
-		marginTop: 10,
-		marginLeft: 15,
+		marginTop: 20,
+		marginLeft: 20,
 		opacity: 1,
 		transition: '0.3s',
 		'&:hover': {
@@ -52,10 +65,48 @@ const styles = {
 };
 
 class Post extends Component {
+	likedPost = () => {
+		if (
+			this.props.user.likes &&
+			this.props.user.likes.find(
+				(like) => like.postId === this.props.post.postId
+			)
+		) {
+			return true;
+		} else {
+			return false;
+		}
+	};
+
+	isUsersPost = () => {
+		if (this.props.user.credentials.handle === this.props.post.userHandle) {
+			return true;
+		} else {
+			return false;
+		}
+	};
+
+	handleLikePost = () => {
+		console.log(this.props.post.postId);
+		this.props.likePost(this.props.post.postId);
+	};
+
+	handleUnlikePost = () => {
+		this.props.unlikePost(this.props.post.postId);
+	};
+
+	handleDeletePost = () => {
+		this.props.deletePost(this.props.post.postId);
+	};
+
 	render() {
 		dayjs.extend(relativeTime);
 		const {
 			classes,
+			user: {
+				authenticated,
+				credentials: { handle },
+			},
 			post: {
 				body,
 				createdAt,
@@ -66,8 +117,29 @@ class Post extends Component {
 				commentCount,
 			},
 		} = this.props;
+
+		const likeButton = !authenticated ? (
+			<CustomIconButton tip="Like">
+				<Link to="/login">
+					<FavoriteBorderIcon color="primary" />
+				</Link>
+			</CustomIconButton>
+		) : this.likedPost() ? (
+			<CustomIconButton tip="Unike" onClick={this.handleUnlikePost}>
+				<FavoriteIcon color="primary" />
+			</CustomIconButton>
+		) : (
+			<CustomIconButton tip="Like" onClick={this.handleLikePost}>
+				<FavoriteBorderIcon color="primary" />
+			</CustomIconButton>
+		);
+
+		const deleteButton = authenticated && this.isUsersPost() && (
+			<DeletePost postId={postId} />
+		);
+
 		return (
-			<Card className={classes.card} component={Link} to="/post/postId">
+			<Card className={classes.card}>
 				<CardMedia
 					image={userImage}
 					title="Profile Image"
@@ -84,12 +156,40 @@ class Post extends Component {
 					>
 						{`@${userHandle}`}
 					</Typography>
+					{deleteButton}
 					<Typography variant="body2">{dayjs(createdAt).fromNow()}</Typography>
 					<Typography variant="body1">{body}</Typography>
+					{likeButton}
+					<span>{likeCount} Likes</span>
+					<CustomIconButton tip="Comments">
+						<ChatIcon color="primary" />
+					</CustomIconButton>
+					<span>{commentCount} Comments</span>
 				</CardContent>
 			</Card>
 		);
 	}
 }
 
-export default withStyles(styles)(Post);
+Post.propTypes = {
+	classes: PropTypes.object.isRequired,
+	likePost: PropTypes.func.isRequired,
+	unlikePost: PropTypes.func.isRequired,
+	user: PropTypes.object.isRequired,
+	post: PropTypes.object.isRequired,
+};
+
+const mapStateToProps = (state) => ({
+	user: state.user,
+});
+
+const mapActionsToProps = {
+	likePost,
+	unlikePost,
+	deletePost,
+};
+
+export default connect(
+	mapStateToProps,
+	mapActionsToProps
+)(withStyles(styles)(Post));

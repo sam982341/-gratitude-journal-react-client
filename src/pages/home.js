@@ -1,12 +1,16 @@
 import React, { Component } from 'react';
-import axios from 'axios';
 import Post from '../components/Post';
 import Profile from '../components/Profile';
+import PropTypes from 'prop-types';
 
 // Mui Stuff
 import Grid from '@material-ui/core/grid';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import withStyles from '@material-ui/core/styles/withStyles';
+
+// Redux
+import { connect } from 'react-redux';
+import { getPosts } from '../redux/actions/dataActions';
 
 const styles = {
 	progressContainerPosts: {
@@ -18,27 +22,15 @@ const styles = {
 };
 
 class home extends Component {
-	state = {
-		posts: null,
-	};
-
 	componentDidMount() {
-		axios
-			.get('/posts')
-			.then((res) => {
-				this.setState({
-					posts: res.data,
-				});
-			})
-			.catch((err) => {
-				console.log(err);
-			});
+		this.props.getPosts();
 	}
 
 	render() {
+		const { posts, loading } = this.props.data;
 		const { classes } = this.props;
-		let recentPostsMarkup = this.state.posts ? (
-			this.state.posts.map((post) => {
+		let recentPostsMarkup = !loading ? (
+			posts.map((post) => {
 				return <Post key={post.postId} post={post} />;
 			})
 		) : (
@@ -59,4 +51,14 @@ class home extends Component {
 	}
 }
 
-export default withStyles(styles)(home);
+home.propTypes = {
+	classes: PropTypes.object.isRequired,
+	getPosts: PropTypes.func.isRequired,
+	data: PropTypes.object.isRequired,
+};
+
+const mapStateToProps = (state) => ({
+	data: state.data,
+});
+
+export default connect(mapStateToProps, { getPosts })(withStyles(styles)(home));

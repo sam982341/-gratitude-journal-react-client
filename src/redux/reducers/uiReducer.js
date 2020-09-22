@@ -5,13 +5,13 @@ const initialState = {
 	errors: null,
 };
 
-export default function (state = initialState, action) {
-	switch (action.type) {
+export default function (state = initialState, actions) {
+	switch (actions.type) {
 		case SET_ERRORS:
 			return {
 				...state,
 				loading: false,
-				errors: action.payload,
+				errors: actions.payload,
 			};
 		case CLEAR_ERRORS:
 			return {
