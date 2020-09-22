@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import lotus from '../images/lotus.png';
 import PropTypes from 'prop-types';
 import CustomIconButton from '../util/CustomIconButton';
+import CreatePost from './CreatePost';
 
 // MUI Stuff
 import AppBar from '@material-ui/core/AppBar';
@@ -11,8 +12,8 @@ import Button from '@material-ui/core/Button';
 import withStyles from '@material-ui/core/styles/withStyles';
 
 // MUI Icons
-import AddIcon from '@material-ui/icons/Add';
 import NotificationsIcon from '@material-ui/icons/Notifications';
+import AddIcon from '@material-ui/icons/Add';
 
 // Redux
 import { connect } from 'react-redux';
@@ -88,9 +89,7 @@ class Navbar extends Component {
 									<img className={classes.logo} src={lotus} alt="GRTFL" />
 								</Link>
 							</div>
-							<CustomIconButton tip="New Post">
-								<AddIcon color="primary" />
-							</CustomIconButton>
+							<CreatePost />
 							<CustomIconButton tip="Notifications">
 								<NotificationsIcon color="primary" />
 							</CustomIconButton>

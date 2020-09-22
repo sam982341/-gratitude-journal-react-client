@@ -87,7 +87,6 @@ class Post extends Component {
 	};
 
 	handleLikePost = () => {
-		console.log(this.props.post.postId);
 		this.props.likePost(this.props.post.postId);
 	};
 

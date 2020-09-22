@@ -4,6 +4,7 @@ import {
 	LIKE_POST,
 	UNLIKE_POST,
 	DELETE_POST,
+	CREATE_POST,
 } from '../types';
 
 const initialState = {
@@ -41,6 +42,11 @@ export default function (state = initialState, actions) {
 			state.posts.splice(deleteIndex, 1);
 			return {
 				...state,
+			};
+		case CREATE_POST:
+			return {
+				...state,
+				posts: [actions.payload, ...state.posts],
 			};
 		default:
 			return state;
