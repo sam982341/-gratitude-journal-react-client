@@ -11,6 +11,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import TextField from '@material-ui/core/TextField';
 import DialogContent from '@material-ui/core/DialogContent';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import { Typography } from '@material-ui/core';
 
 // Mui Icons
 import AddIcon from '@material-ui/icons/Add';
@@ -30,6 +31,14 @@ const styles = (theme) => ({
 		position: 'relative',
 		float: 'right',
 		marginTop: 10,
+	},
+	inputForm: {
+		display: 'flex',
+		alignItems: 'center',
+	},
+	gratefulForText: {
+		width: '50%',
+		marginTop: 14,
 	},
 });
 
@@ -74,6 +83,13 @@ class CreatePost extends Component {
 		}
 	}
 
+	handleKeyPress(event) {
+		if (event.key === 'Enter') {
+			event.preventDefault();
+			this.props.createPost({ body: this.state.body });
+		}
+	}
+
 	render() {
 		const { errors } = this.state;
 		const {
@@ -91,34 +107,53 @@ class CreatePost extends Component {
 					fullWidth
 					maxWidth="sm"
 				>
-					<CustomIconButton
-						tip="Close"
-						onClick={this.handleClose}
-						className={classes.closeButton}
-					>
-						<CloseIcon color="primary" />
-					</CustomIconButton>
 					<DialogTitle>Create a New Post</DialogTitle>
+					<div className={classes.closeButton}>
+						<CustomIconButton tip="Close" onClick={this.handleClose}>
+							<CloseIcon color="primary" />
+						</CustomIconButton>
+					</div>
 					<DialogContent>
 						<form onSubmit={this.handleSubmit}>
-							<TextField
-								autoFocus
-								id="post"
-								label="What are you grateful for?"
-								type="text"
-								name="body"
-								rows="3"
-								placeholder="I am grateful for"
-								error={errors.body ? true : false}
-								helperText={errors.body}
-								className={classes.textField}
-								onChange={this.handleChange}
-								fullWidth
-							/>
-							<Button type="submit" className={classes.submitButton}>
+							<div className={classes.inputForm}>
+								<Typography className={classes.gratefulForText} variant="h5">
+									I am grateful for{' '}
+								</Typography>
+								<TextField
+									autoFocus
+									id="post"
+									label="What are you grateful for?"
+									type="text"
+									name="body"
+									multiline
+									placeholder="the beautiful weather!"
+									error={errors.body ? true : false}
+									helperText={errors.body}
+									className={classes.textField}
+									onChange={this.handleChange}
+									onKeyPress={(event) => {
+										if (event.key === 'Enter') {
+											event.preventDefault();
+											this.props.createPost({ body: this.state.body });
+										}
+									}}
+									fullWidth
+								/>
+							</div>
+							<Button
+								type="submit"
+								className={classes.submitButton}
+								color="primary"
+								variant="contained"
+								size="small"
+							>
 								Submit
 								{loading && (
-									<CircularProgress size={30} className={classes.progress} />
+									<CircularProgress
+										size={30}
+										className={classes.progress}
+										color="secondary"
+									/>
 								)}
 							</Button>
 						</form>

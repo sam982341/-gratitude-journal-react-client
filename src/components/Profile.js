@@ -6,7 +6,6 @@ import EditDetails from './EditDetails';
 import CustomIconButton from '../util/CustomIconButton';
 
 // MUI
-import Button from '@material-ui/core/Button';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Paper from '@material-ui/core/Paper';
 import MuiLink from '@material-ui/core/Link';

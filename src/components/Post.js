@@ -34,8 +34,8 @@ const styles = {
 		},
 	},
 	image: {
-		width: 130,
-		height: 130,
+		width: 120,
+		height: 120,
 		borderRadius: '50%',
 		marginTop: 20,
 		marginLeft: 20,
@@ -56,11 +56,24 @@ const styles = {
 			textDecoration: 'underline',
 		},
 	},
-	gratefulText: {
-		color: '#7e208f',
+	gratefulTextStart: {
+		color: '#707070',
+	},
+	gratefulbody: {
+		//color: '#7e208f',
 	},
 	bodyContainer: {
 		display: 'flex',
+	},
+	timeText: {
+		color: '#cacaca',
+		marginBottom: 5,
+	},
+	userImageContainer: {
+		width: '20%',
+	},
+	contentContainer: {
+		width: '80%',
 	},
 };
 
@@ -139,32 +152,43 @@ class Post extends Component {
 
 		return (
 			<Card className={classes.card}>
-				<CardMedia
-					image={userImage}
-					title="Profile Image"
-					className={classes.image}
-					component={Link}
-					to={`/users/${userHandle}`}
-				/>
-				<CardContent className={classes.content}>
-					<Typography
-						className={classes.userHandle}
-						variant="h6"
+				<div className={classes.userImageContainer}>
+					<CardMedia
+						image={userImage}
+						title="Profile Image"
+						className={classes.image}
 						component={Link}
 						to={`/users/${userHandle}`}
-					>
-						{`@${userHandle}`}
-					</Typography>
-					{deleteButton}
-					<Typography variant="body2">{dayjs(createdAt).fromNow()}</Typography>
-					<Typography variant="body1">{body}</Typography>
-					{likeButton}
-					<span>{likeCount} Likes</span>
-					<CustomIconButton tip="Comments">
-						<ChatIcon color="primary" />
-					</CustomIconButton>
-					<span>{commentCount} Comments</span>
-				</CardContent>
+					/>
+				</div>
+				<div className={classes.contentContainer}>
+					<CardContent className={classes.content}>
+						<Typography
+							className={classes.userHandle}
+							variant="h6"
+							component={Link}
+							to={`/users/${userHandle}`}
+						>
+							{`@${userHandle}`}
+						</Typography>
+						{deleteButton}
+						<Typography className={classes.timeText} variant="body2">
+							{dayjs(createdAt).fromNow()}
+						</Typography>
+						<Typography variant="body1">
+							<span className={classes.gratefulTextStart}>
+								I am grateful for{' '}
+							</span>
+							<span className={classes.gratefulbody}>{body}</span>
+						</Typography>
+						{likeButton}
+						<span>{likeCount} Likes</span>
+						<CustomIconButton tip="Comments">
+							<ChatIcon color="primary" />
+						</CustomIconButton>
+						<span>{commentCount} Comments</span>
+					</CardContent>
+				</div>
 			</Card>
 		);
 	}

@@ -13,7 +13,6 @@ import withStyles from '@material-ui/core/styles/withStyles';
 
 // MUI Icons
 import NotificationsIcon from '@material-ui/icons/Notifications';
-import AddIcon from '@material-ui/icons/Add';
 
 // Redux
 import { connect } from 'react-redux';
