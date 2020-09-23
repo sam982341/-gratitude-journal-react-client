@@ -31,13 +31,19 @@ const styles = {
 			background: '#fce8ff',
 			borderRadius: '50%',
 		},
+		position: 'absolute',
+		left: '10%',
+	},
+	buttonContainer: {
+		position: 'absolute',
+		right: '20%',
 	},
 	logo: {
 		height: 40,
 		margin: '0 10px 0 10px',
 	},
 	signup: {
-		margin: '0 10px 0 5px',
+		margin: '0 10px 0 20px',
 	},
 	login: {
 		margin: '0 0px 0 10px',
@@ -61,26 +67,28 @@ class Navbar extends Component {
 									<img className={classes.logo} src={lotus} alt="GRTFL" />
 								</Link>
 							</div>
-							<Button
-								component={Link}
-								to="/login"
-								variant="outlined"
-								color="primary"
-								size="small"
-								className={classes.login}
-							>
-								Login
-							</Button>
-							<Button
-								component={Link}
-								to="/signup"
-								color="primary"
-								variant="contained"
-								size="small"
-								className={classes.signup}
-							>
-								signup
-							</Button>
+							<div className={classes.buttonContainer}>
+								<Button
+									component={Link}
+									to="/login"
+									variant="outlined"
+									color="primary"
+									size="small"
+									className={classes.login}
+								>
+									Login
+								</Button>
+								<Button
+									component={Link}
+									to="/signup"
+									color="primary"
+									variant="contained"
+									size="small"
+									className={classes.signup}
+								>
+									signup
+								</Button>
+							</div>
 						</Fragment>
 					) : (
 						<Fragment>
@@ -89,10 +97,12 @@ class Navbar extends Component {
 									<img className={classes.logo} src={lotus} alt="GRTFL" />
 								</Link>
 							</div>
-							<CreatePost />
-							<CustomIconButton tip="Notifications">
-								<NotificationsIcon color="primary" />
-							</CustomIconButton>
+							<div className={classes.buttonContainer}>
+								<CreatePost className={classes.newPostButton} />
+								<CustomIconButton tip="Notifications">
+									<NotificationsIcon color="primary" />
+								</CustomIconButton>
+							</div>
 						</Fragment>
 					)}
 				</Toolbar>

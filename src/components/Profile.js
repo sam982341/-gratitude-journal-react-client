@@ -174,28 +174,6 @@ class Profile extends Component {
 					<Typography variant="body2" align="center">
 						Sign Up or Log In
 					</Typography>
-					<div className={classes.buttons}>
-						<Button
-							component={Link}
-							to="/login"
-							variant="outlined"
-							color="primary"
-							size="small"
-							className={classes.login}
-						>
-							Login
-						</Button>
-						<Button
-							component={Link}
-							to="/signup"
-							color="primary"
-							variant="contained"
-							size="small"
-							className={classes.signup}
-						>
-							signup
-						</Button>
-					</div>
 				</Paper>
 			)
 		) : (
