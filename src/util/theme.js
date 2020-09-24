@@ -33,5 +33,10 @@ export default {
 		progress: {
 			position: 'absolute',
 		},
+		closeButton: {
+			position: 'absolute',
+			left: '91%',
+			top: '6%',
+		},
 	},
 };

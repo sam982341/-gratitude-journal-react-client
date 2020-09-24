@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react';
 import withStyles from '@material-ui/core/styles/withStyles';
 import PropTypes from 'prop-types';
 import CustomIconButton from '../util/CustomIconButton';
-import { createPost } from '../redux/actions/dataActions';
+import { createPost, clearErrors } from '../redux/actions/dataActions';
 
 // Mui
 import Button from '@material-ui/core/Button';
@@ -22,11 +22,6 @@ import { connect } from 'react-redux';
 
 const styles = (theme) => ({
 	...theme.global,
-	closeButton: {
-		position: 'absolute',
-		left: '91%',
-		top: '6%',
-	},
 	submitButton: {
 		position: 'relative',
 		float: 'right',
@@ -54,6 +49,7 @@ class CreatePost extends Component {
 	};
 
 	handleClose = () => {
+		this.props.clearErrors();
 		this.setState({
 			open: false,
 			errors: {},
@@ -77,9 +73,8 @@ class CreatePost extends Component {
 				errors: nextProps.UI.errors,
 			});
 		}
-		if (!nextProps.UI.error && !nextProps.UI.loading) {
-			this.setState({ body: '' });
-			this.handleClose();
+		if (!nextProps.UI.errors && !nextProps.UI.loading) {
+			this.setState({ body: '', open: false, errors: {} });
 		}
 	}
 
@@ -166,6 +161,7 @@ class CreatePost extends Component {
 
 CreatePost.propTypes = {
 	createPost: PropTypes.func.isRequired,
+	clearErrors: PropTypes.func.isRequired,
 	UI: PropTypes.object.isRequired,
 };
 
@@ -173,6 +169,12 @@ const mapStateToProps = (state) => ({
 	UI: state.UI,
 });
 
-export default connect(mapStateToProps, { createPost })(
-	withStyles(styles)(CreatePost)
-);
+const mapActionsToProps = {
+	createPost,
+	clearErrors,
+};
+
+export default connect(
+	mapStateToProps,
+	mapActionsToProps
+)(withStyles(styles)(CreatePost));

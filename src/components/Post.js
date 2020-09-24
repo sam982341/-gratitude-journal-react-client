@@ -5,6 +5,8 @@ import relativeTime from 'dayjs/plugin/relativeTime';
 import PropTypes from 'prop-types';
 import CustomIconButton from '../util/CustomIconButton';
 import DeletePost from './DeletePost';
+import PostDialog from './PostDialog';
+import LikeButton from './LikeButton';
 
 // Mui Stuff
 import Card from '@material-ui/core/Card';
@@ -15,12 +17,9 @@ import withStyles from '@material-ui/core/styles/withStyles';
 
 // MUI Icons
 import ChatIcon from '@material-ui/icons/Chat';
-import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
-import FavoriteIcon from '@material-ui/icons/Favorite';
 
 // Redux
 import { connect } from 'react-redux';
-import { likePost, unlikePost, deletePost } from '../redux/actions/dataActions';
 
 const styles = {
 	card: {
@@ -34,8 +33,9 @@ const styles = {
 		},
 	},
 	image: {
-		width: 120,
+		maxWidth: 120,
 		height: 120,
+		objectFit: 'cover',
 		borderRadius: '50%',
 		marginTop: 20,
 		marginLeft: 20,
@@ -107,10 +107,6 @@ class Post extends Component {
 		this.props.unlikePost(this.props.post.postId);
 	};
 
-	handleDeletePost = () => {
-		this.props.deletePost(this.props.post.postId);
-	};
-
 	render() {
 		dayjs.extend(relativeTime);
 		const {
@@ -129,22 +125,6 @@ class Post extends Component {
 				commentCount,
 			},
 		} = this.props;
-
-		const likeButton = !authenticated ? (
-			<CustomIconButton tip="Like">
-				<Link to="/login">
-					<FavoriteBorderIcon color="primary" />
-				</Link>
-			</CustomIconButton>
-		) : this.likedPost() ? (
-			<CustomIconButton tip="Unike" onClick={this.handleUnlikePost}>
-				<FavoriteIcon color="primary" />
-			</CustomIconButton>
-		) : (
-			<CustomIconButton tip="Like" onClick={this.handleLikePost}>
-				<FavoriteBorderIcon color="primary" />
-			</CustomIconButton>
-		);
 
 		const deleteButton = authenticated && this.isUsersPost() && (
 			<DeletePost postId={postId} />
@@ -181,12 +161,13 @@ class Post extends Component {
 							</span>
 							<span className={classes.gratefulbody}>{body}</span>
 						</Typography>
-						{likeButton}
+						<LikeButton postId={postId} />
 						<span>{likeCount} Likes</span>
 						<CustomIconButton tip="Comments">
 							<ChatIcon color="primary" />
 						</CustomIconButton>
 						<span>{commentCount} Comments</span>
+						<PostDialog postId={postId} userHandle={userHandle} />
 					</CardContent>
 				</div>
 			</Card>
@@ -196,8 +177,6 @@ class Post extends Component {
 
 Post.propTypes = {
 	classes: PropTypes.object.isRequired,
-	likePost: PropTypes.func.isRequired,
-	unlikePost: PropTypes.func.isRequired,
 	user: PropTypes.object.isRequired,
 	post: PropTypes.object.isRequired,
 };
@@ -206,13 +185,4 @@ const mapStateToProps = (state) => ({
 	user: state.user,
 });
 
-const mapActionsToProps = {
-	likePost,
-	unlikePost,
-	deletePost,
-};
-
-export default connect(
-	mapStateToProps,
-	mapActionsToProps
-)(withStyles(styles)(Post));
+export default connect(mapStateToProps)(withStyles(styles)(Post));

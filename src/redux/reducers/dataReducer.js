@@ -1,5 +1,6 @@
 import {
 	SET_POSTS,
+	SET_POST,
 	LOADING_DATA,
 	LIKE_POST,
 	UNLIKE_POST,
@@ -26,12 +27,20 @@ export default function (state = initialState, actions) {
 				posts: actions.payload,
 				loading: false,
 			};
+		case SET_POST:
+			return {
+				...state,
+				post: actions.payload,
+			};
 		case UNLIKE_POST:
 		case LIKE_POST:
 			let likeIndex = state.posts.findIndex(
 				(post) => post.postId === actions.payload.postId
 			);
 			state.posts[likeIndex] = actions.payload;
+			if (state.post.postId === actions.payload.postId) {
+				state.post = actions.payload;
+			}
 			return {
 				...state,
 			};
