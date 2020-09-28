@@ -30,8 +30,6 @@ class CommentForm extends Component {
 		}
 		if (!nextProps.UI.errors && !nextProps.UI.loading) {
 			this.setState({ body: '' });
-		} else {
-			console.log('no');
 		}
 	}
 
