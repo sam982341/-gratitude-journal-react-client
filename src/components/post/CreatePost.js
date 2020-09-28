@@ -1,8 +1,8 @@
 import React, { Component, Fragment } from 'react';
 import withStyles from '@material-ui/core/styles/withStyles';
 import PropTypes from 'prop-types';
-import CustomIconButton from '../util/CustomIconButton';
-import { createPost, clearErrors } from '../redux/actions/dataActions';
+import CustomIconButton from '../../util/CustomIconButton';
+import { createPost, clearErrors } from '../../redux/actions/dataActions';
 
 // Mui
 import Button from '@material-ui/core/Button';

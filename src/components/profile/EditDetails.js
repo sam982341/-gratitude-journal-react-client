@@ -1,11 +1,11 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import withStyles from '@material-ui/core/styles/withStyles';
-import CustomIconButton from '../util/CustomIconButton';
+import CustomIconButton from '../../util/CustomIconButton';
 
 // Redux
 import { connect } from 'react-redux';
-import { editUserDetails } from '../redux/actions/userActions';
+import { editUserDetails } from '../../redux/actions/userActions';
 
 // MUI Components
 import Button from '@material-ui/core/Button';

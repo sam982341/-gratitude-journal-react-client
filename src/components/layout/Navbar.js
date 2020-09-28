@@ -1,9 +1,9 @@
 import React, { Component, Fragment } from 'react';
 import { Link } from 'react-router-dom';
-import lotus from '../images/lotus.png';
+import lotus from '../../images/lotus.png';
 import PropTypes from 'prop-types';
-import CustomIconButton from '../util/CustomIconButton';
-import CreatePost from './CreatePost';
+import CustomIconButton from '../../util/CustomIconButton';
+import CreatePost from '../post/CreatePost';
 
 // MUI Stuff
 import AppBar from '@material-ui/core/AppBar';
@@ -32,10 +32,6 @@ const styles = {
 		},
 		position: 'absolute',
 		left: '10%',
-	},
-	buttonContainer: {
-		position: 'absolute',
-		right: '20%',
 	},
 	logo: {
 		height: 40,

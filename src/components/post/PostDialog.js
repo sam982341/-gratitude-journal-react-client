@@ -1,11 +1,12 @@
 import React, { Component, Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import dayjs from 'dayjs';
-import relativeTime from 'dayjs/plugin/relativeTime';
 import PropTypes from 'prop-types';
-import CustomIconButton from '../util/CustomIconButton';
+import CustomIconButton from '../../util/CustomIconButton';
 import DeletePost from './DeletePost';
 import LikeButton from './LikeButton';
+import Comments from './Comments';
+import CommentForm from './CommentForm';
 
 // MUI
 import Button from '@material-ui/core/Button';
@@ -25,21 +26,19 @@ import ChatIcon from '@material-ui/icons/Chat';
 
 // Redux
 import { connect } from 'react-redux';
-import { getPost } from '../redux/actions/dataActions';
+import { getPost } from '../../redux/actions/dataActions';
 
 const styles = (theme) => ({
 	...theme.global,
-	invisibleSeparator: {
-		border: 'none',
-		margin: 4,
-	},
+
 	profileImage: {
-		maxWidth: 200,
-		height: 200,
+		maxWidth: 150,
+		height: 150,
+		padding: '10px 0 10px 0',
 		borderRadius: '50%',
 		objectFit: 'cover',
 	},
-	dialogContent: {
+	dialogBox: {
 		padding: 20,
 	},
 	closeButton: {
@@ -50,12 +49,15 @@ const styles = (theme) => ({
 		display: 'flex',
 		justifyContent: 'center',
 		alignItems: 'center',
-		height: 200,
+		height: 170,
 	},
 	expandButton: {
 		position: 'absolute',
 		right: 0,
 		marginRight: '20px',
+	},
+	postDialogContent: {
+		padding: '15px 0 15px 0',
 	},
 });
 
@@ -82,6 +84,7 @@ class PostDialog extends Component {
 				commentCount,
 				userImage,
 				userHandle,
+				comments,
 			},
 			UI: { loading },
 		} = this.props;
@@ -92,24 +95,29 @@ class PostDialog extends Component {
 			</div>
 		) : (
 			<Grid container spacing={16}>
-				<Grid item sm={5}>
+				<Grid item sm={4}>
 					<img src={userImage} alt="Profile" className={classes.profileImage} />
 				</Grid>
-				<Grid item sm={7}>
+				<Grid item sm={8} className={classes.postDialogContent}>
 					<Typography
+						className={classes.userHandle}
+						variant="h6"
 						component={Link}
-						color="Primary"
-						variant="h5"
-						to={`users/${userHandle}`}
+						to={`/users/${userHandle}`}
 					>
-						@{userHandle}
+						{`@${userHandle}`}
 					</Typography>
-					<hr className={classes.invisibleSeparator} />
-					<Typography variant="body2" color="grey">
+					<Typography variant="body2" className={classes.timeText}>
 						{dayjs(createdAt).format('h:mm a, MMMM DD YYYY')}
 					</Typography>
 					<hr className={classes.invisibleSeparator} />
-					<Typography variant="body1">{body}</Typography>
+
+					<Typography variant="body1">
+						<span className={classes.gratefulTextStart}>
+							I am grateful for{' '}
+						</span>
+						<span className={classes.gratefulbody}>{body}</span>
+					</Typography>
 					<LikeButton postId={postId} />
 					<span>{likeCount} likes</span>
 					<CustomIconButton tip="Comments">
@@ -117,6 +125,9 @@ class PostDialog extends Component {
 					</CustomIconButton>
 					<span>{commentCount} Comments</span>
 				</Grid>
+				<hr className={classes.visibleSeparator} />
+				<CommentForm postId={postId} />
+				<Comments comments={comments} />
 			</Grid>
 		);
 
@@ -141,7 +152,7 @@ class PostDialog extends Component {
 							<CloseIcon color="primary" />
 						</CustomIconButton>
 					</div>
-					<DialogContent className={classes.DialogContent}>
+					<DialogContent className={classes.dialogBox}>
 						{dialogMarkup}
 					</DialogContent>
 				</Dialog>

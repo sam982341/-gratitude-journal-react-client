@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import CustomIconButton from '../util/CustomIconButton';
+import CustomIconButton from '../../util/CustomIconButton';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { likePost, unlikePost } from '../redux/actions/dataActions';
+import { likePost, unlikePost } from '../../redux/actions/dataActions';
 
 // MUI Icons
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';

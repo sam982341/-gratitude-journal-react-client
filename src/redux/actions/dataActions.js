@@ -10,6 +10,7 @@ import {
 	SET_ERRORS,
 	SET_POST,
 	STOP_LOADING_UI,
+	SUBMIT_COMMENT,
 } from '../types';
 import axios from 'axios';
 
@@ -101,6 +102,25 @@ export const createPost = (newPostData) => (dispatch) => {
 				payload: res.data,
 			});
 			dispatch({ type: CLEAR_ERRORS });
+		})
+		.catch((err) => {
+			dispatch({
+				type: SET_ERRORS,
+				payload: err.response.data,
+			});
+		});
+};
+
+// Comment on a post
+export const submitComment = (postId, newCommentData) => (dispatch) => {
+	axios
+		.post(`/post/${postId}/comment`, newCommentData)
+		.then((res) => {
+			dispatch({
+				type: SUBMIT_COMMENT,
+				payload: res.data,
+			});
+			dispatch(clearErrors());
 		})
 		.catch((err) => {
 			dispatch({
