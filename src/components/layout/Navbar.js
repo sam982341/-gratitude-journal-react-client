@@ -15,7 +15,7 @@ import NotificationsIcon from '@material-ui/icons/Notifications';
 
 // Redux
 import { connect } from 'react-redux';
-import { logoutUser, uploadImage } from '../../redux/actions/userActions';
+import { logoutUser } from '../../redux/actions/userActions';
 
 const styles = {
 	logoContainer: {
@@ -24,7 +24,7 @@ const styles = {
 		display: 'flex',
 		alignItems: 'center',
 		justifyContent: 'center',
-		transition: '0.3s',
+		transition: '0.2s',
 		borderRadius: '50%',
 		'&:hover': {
 			background: '#fce8ff',
@@ -35,7 +35,6 @@ const styles = {
 	},
 	logo: {
 		height: 40,
-		margin: '0 10px 0 10px',
 	},
 	signup: {
 		margin: '0 10px 0 20px',
@@ -109,7 +108,15 @@ class Navbar extends Component {
 								</CustomIconButton>
 							</div>
 							<div className={classes.logoutContainer}>
-								<Button onClick={this.handleLogout}>Logout</Button>
+								<Button
+									onClick={this.handleLogout}
+									variant="outlined"
+									color="primary"
+									size="small"
+									className={classes.login}
+								>
+									Logout
+								</Button>
 							</div>
 						</Fragment>
 					)}

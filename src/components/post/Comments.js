@@ -9,7 +9,6 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 
 // redux
-import { connect } from 'react-redux';
 
 const styles = (theme) => ({
 	...theme.global,

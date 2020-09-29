@@ -11,8 +11,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 
 // Redux
 import { connect } from 'react-redux';
-import { getUserData } from '../redux/actions/dataActions';
-import { SignalCellularNullSharp } from '@material-ui/icons';
+import { getUserData, getUserPosts } from '../redux/actions/dataActions';
 
 const styles = (theme) => ({
 	...theme.global,
@@ -22,13 +21,21 @@ class user extends Component {
 	state = {
 		profile: null,
 		postIdParam: null,
+		working: false,
 	};
 
 	componentDidMount() {
 		const handle = this.props.match.params.handle;
 		const postId = this.props.match.params.postId;
 
-		if (postId) this.setState({ postIdParam: postId });
+		this.props.getUserPosts(handle);
+
+		if (postId) {
+			this.setState({
+				postIdParam: postId,
+				working: true,
+			});
+		}
 
 		this.props.getUserData(handle);
 		axios
@@ -54,9 +61,17 @@ class user extends Component {
 			</div>
 		) : posts === null ? (
 			<p>No Posts</p>
-		) : (
+		) : !postIdParam ? (
 			posts.map((post) => {
 				return <Post key={post.postId} post={post} />;
+			})
+		) : (
+			posts.map((post) => {
+				if (post.postId !== postIdParam) {
+					return <Post key={post.postId} post={post} />;
+				} else {
+					return <Post key={post.postId} post={post} openDialog />;
+				}
 			})
 		);
 
@@ -88,6 +103,12 @@ const mapStateToProps = (state) => ({
 	data: state.data,
 });
 
-export default connect(mapStateToProps, { getUserData })(
-	withStyles(styles)(user)
-);
+const mapActionsToProps = {
+	getUserPosts,
+	getUserData,
+};
+
+export default connect(
+	mapStateToProps,
+	mapActionsToProps
+)(withStyles(styles)(user));

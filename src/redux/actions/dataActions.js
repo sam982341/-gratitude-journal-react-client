@@ -33,6 +33,24 @@ export const getPosts = () => (dispatch) => {
 		});
 };
 
+export const getUserPosts = (handle) => (dispatch) => {
+	dispatch({ type: LOADING_DATA });
+	axios
+		.get(`/users/${handle}/posts`)
+		.then((res) => {
+			dispatch({
+				type: SET_POSTS,
+				payload: res.data,
+			});
+		})
+		.catch((err) => {
+			dispatch({
+				type: SET_POSTS,
+				payload: [],
+			});
+		});
+};
+
 // Get one post
 export const getPost = (postId) => (dispatch) => {
 	dispatch({ type: LOADING_UI });
@@ -140,6 +158,7 @@ export const getUserData = (userHandle) => (dispatch) => {
 				type: SET_POSTS,
 				payload: res.data.posts,
 			});
+			dispatch({ type: STOP_LOADING_UI });
 		})
 		.catch((err) => {
 			dispatch({

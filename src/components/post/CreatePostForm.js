@@ -30,12 +30,15 @@ const styles = (theme) => ({
 	},
 	gratefulForText: {
 		width: '40%',
-		marginTop: 14,
+		marginTop: 12,
 		marginRight: 8,
 		textAlign: 'right',
 	},
 	formContainer: {
-		margin: '10px 20px 10px 20px',
+		margin: '30px 20px 10px 20px',
+	},
+	resize: {
+		fontSize: 20,
 	},
 });
 
@@ -85,12 +88,16 @@ class CreatePostForm extends Component {
 							I am grateful for{' '}
 						</Typography>
 						<TextField
-							autoFocus
 							id="post"
 							label="What are you grateful for?"
 							type="text"
 							name="body"
 							multiline
+							InputProps={{
+								classes: {
+									input: classes.resize,
+								},
+							}}
 							placeholder="the beautiful weather!"
 							error={errors.body ? true : false}
 							helperText={errors.body}
