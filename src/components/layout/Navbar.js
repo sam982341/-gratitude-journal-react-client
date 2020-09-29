@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import lotus from '../../images/lotus.png';
 import PropTypes from 'prop-types';
 import CustomIconButton from '../../util/CustomIconButton';
-import CreatePost from '../post/CreatePost';
 
 // MUI Stuff
 import AppBar from '@material-ui/core/AppBar';
@@ -50,6 +49,9 @@ const styles = {
 	logoutContainer: {
 		position: 'absolute',
 		right: '10%',
+		display: 'flex',
+		alignItems: 'center',
+		justifyContent: 'center',
 	},
 };
 
