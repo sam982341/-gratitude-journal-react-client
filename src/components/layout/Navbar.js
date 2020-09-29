@@ -16,6 +16,7 @@ import NotificationsIcon from '@material-ui/icons/Notifications';
 
 // Redux
 import { connect } from 'react-redux';
+import { logoutUser, uploadImage } from '../../redux/actions/userActions';
 
 const styles = {
 	logoContainer: {
@@ -46,9 +47,17 @@ const styles = {
 	icons: {
 		color: 'primary',
 	},
+	logoutContainer: {
+		position: 'absolute',
+		right: '10%',
+	},
 };
 
 class Navbar extends Component {
+	handleLogout = () => {
+		this.props.logoutUser();
+	};
+
 	render() {
 		const { classes, authenticated } = this.props;
 
@@ -93,10 +102,12 @@ class Navbar extends Component {
 								</Link>
 							</div>
 							<div className={classes.buttonContainer}>
-								<CreatePost className={classes.newPostButton} />
 								<CustomIconButton tip="Notifications">
 									<NotificationsIcon color="primary" />
 								</CustomIconButton>
+							</div>
+							<div className={classes.logoutContainer}>
+								<Button onClick={this.handleLogout}>Logout</Button>
 							</div>
 						</Fragment>
 					)}
@@ -114,4 +125,6 @@ const mapStateToProps = (state) => ({
 	authenticated: state.user.authenticated,
 });
 
-export default connect(mapStateToProps)(withStyles(styles)(Navbar));
+export default connect(mapStateToProps, { logoutUser })(
+	withStyles(styles)(Navbar)
+);

@@ -112,7 +112,6 @@ class PostDialog extends Component {
 						{dayjs(createdAt).format('h:mm a, MMMM DD YYYY')}
 					</Typography>
 					<hr className={classes.invisibleSeparator} />
-
 					<Typography variant="body1">
 						<span className={classes.gratefulTextStart}>
 							I am grateful for{' '}
