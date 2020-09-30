@@ -1,3 +1,4 @@
+import { StaticRouter } from 'react-router-dom';
 import {
 	SET_USER,
 	SET_AUTHENTICATED,
@@ -5,6 +6,7 @@ import {
 	LOADING_USER,
 	LIKE_POST,
 	UNLIKE_POST,
+	MARK_NOTIFICATIONS_READ,
 } from '../types';
 
 const initialState = {
@@ -52,6 +54,11 @@ export default function (state = initialState, actions) {
 				likes: state.likes.filter(
 					(like) => like.postId !== actions.payload.postId
 				),
+			};
+		case MARK_NOTIFICATIONS_READ:
+			state.notifications.forEach((notification) => (notification.read = true));
+			return {
+				...state,
 			};
 		default:
 			return state;

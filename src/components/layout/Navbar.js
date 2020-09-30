@@ -3,15 +3,13 @@ import { Link } from 'react-router-dom';
 import lotus from '../../images/lotus.png';
 import PropTypes from 'prop-types';
 import CustomIconButton from '../../util/CustomIconButton';
+import Notifications from './Notifications';
 
 // MUI Stuff
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Button from '@material-ui/core/Button';
 import withStyles from '@material-ui/core/styles/withStyles';
-
-// MUI Icons
-import NotificationsIcon from '@material-ui/icons/Notifications';
 
 // Redux
 import { connect } from 'react-redux';
@@ -103,9 +101,7 @@ class Navbar extends Component {
 								</Link>
 							</div>
 							<div className={classes.buttonContainer}>
-								<CustomIconButton tip="Notifications">
-									<NotificationsIcon color="primary" />
-								</CustomIconButton>
+								<Notifications />
 							</div>
 							<div className={classes.logoutContainer}>
 								<Button
