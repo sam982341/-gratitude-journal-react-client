@@ -32,6 +32,9 @@ const styles = (theme) => ({
 		//'&:hover': {
 		//	background: '#f8ecfa',
 		//},
+		'@media (max-width: 780px)': {
+			display: 'none',
+		},
 	},
 	profile: {
 		'& .image-wrapper': {

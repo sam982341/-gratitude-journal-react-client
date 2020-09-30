@@ -35,6 +35,10 @@ const styles = (styles) => ({
 		'&:hover': {
 			opacity: 0.8,
 		},
+		'@media (max-width: 780px)': {
+			maxWidth: 75,
+			height: 75,
+		},
 	},
 	content: {
 		padding: 25,

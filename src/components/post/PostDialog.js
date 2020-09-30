@@ -37,6 +37,11 @@ const styles = (theme) => ({
 		padding: '10px 0 10px 0',
 		borderRadius: '50%',
 		objectFit: 'cover',
+		'@media (max-width: 780px)': {
+			maxWidth: 75,
+			height: 75,
+			marginRight: 15,
+		},
 	},
 	dialogBox: {
 		padding: 20,

@@ -15,6 +15,14 @@ const styles = (theme) => ({
 	...theme.global,
 	commentInputContainer: {
 		width: '100%',
+		'@media (max-width: 780px)': {
+			width: '140%',
+		},
+	},
+	visibleContainer: {
+		'@media (max-width: 780px)': {
+			width: '140%',
+		},
 	},
 });
 

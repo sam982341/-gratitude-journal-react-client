@@ -28,6 +28,12 @@ const styles = (theme) => ({
 		//'&:hover': {
 		//	background: '#f8ecfa',
 		//},
+		'@media (max-width: 780px)': {
+			position: 'relative',
+			width: '90%',
+			marginTop: 0,
+			padding: 20,
+		},
 	},
 	profile: {
 		'& .image-wrapper': {
@@ -40,6 +46,10 @@ const styles = (theme) => ({
 			objectFit: 'cover',
 			maxWidth: '100%',
 			borderRadius: '50%',
+			'@media (max-width: 780px)': {
+				width: 100,
+				height: 100,
+			},
 		},
 		'& .profile-details': {
 			textAlign: 'center',

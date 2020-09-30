@@ -10,6 +10,7 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import withStyles from '@material-ui/core/styles/withStyles';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import InputAdornment from '@material-ui/core/InputAdornment';
 
 // Redux
 import { connect } from 'react-redux';
@@ -116,6 +117,16 @@ class signup extends Component {
 							value={this.state.handle}
 							onChange={this.handleChange}
 							fullWidth
+							InputProps={{
+								startAdornment: (
+									<InputAdornment
+										position="start"
+										className={classes.inputAdornment}
+									>
+										@
+									</InputAdornment>
+								),
+							}}
 						/>
 						{errors.general && (
 							<Typography className={classes.customError}>

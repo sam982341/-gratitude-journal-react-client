@@ -17,6 +17,10 @@ const styles = (theme) => ({
 		height: '100',
 		objectFit: 'cover',
 		borderRadius: '50%',
+		'@media (max-width: 780px)': {
+			maxWidth: 75,
+			height: 75,
+		},
 	},
 	commentData: {
 		marginLeft: 20,
@@ -50,6 +54,7 @@ class Comments extends Component {
 												variant="h5"
 												component={Link}
 												to={`/users/${userHandle}`}
+												className={classes.userHandle}
 											>
 												@{userHandle}
 											</Typography>

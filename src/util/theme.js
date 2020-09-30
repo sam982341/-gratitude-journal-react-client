@@ -70,6 +70,9 @@ export default {
 			//'&:hover': {
 			//	background: '#f8ecfa',
 			//},
+			'@media (max-width: 780px)': {
+				paddingTop: 10,
+			},
 		},
 		invisibleSeparator: {
 			border: 'none',

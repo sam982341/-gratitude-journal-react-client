@@ -35,13 +35,13 @@ class home extends Component {
 			</div>
 		);
 		return (
-			<Grid container spacing={10}>
+			<Grid container spacing={10} className={classes.muiGrid}>
+				<Grid item sm={4} xs={12}>
+					<Profile />
+				</Grid>
 				<Grid item sm={8} xs={12}>
 					<CreatePostForm />
 					{recentPostsMarkup}
-				</Grid>
-				<Grid item sm={4} xs={12}>
-					<Profile />
 				</Grid>
 			</Grid>
 		);
