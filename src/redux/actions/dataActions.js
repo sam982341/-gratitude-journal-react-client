@@ -11,6 +11,7 @@ import {
 	SET_POST,
 	STOP_LOADING_UI,
 	SUBMIT_COMMENT,
+	SET_PROFILE,
 } from '../types';
 import axios from 'axios';
 
@@ -48,6 +49,21 @@ export const getUserPosts = (handle) => (dispatch) => {
 				type: SET_POSTS,
 				payload: [],
 			});
+		});
+};
+
+export const getUserProfile = (handle) => (dispatch) => {
+	dispatch({ type: LOADING_DATA });
+	axios
+		.get(`/user/${handle}/profile`)
+		.then((res) => {
+			dispatch({
+				type: SET_PROFILE,
+				payload: res.data,
+			});
+		})
+		.catch((err) => {
+			console.log(err);
 		});
 };
 
@@ -131,6 +147,7 @@ export const createPost = (newPostData) => (dispatch) => {
 
 // Comment on a post
 export const submitComment = (postId, newCommentData) => (dispatch) => {
+	dispatch({ type: LOADING_UI });
 	axios
 		.post(`/post/${postId}/comment`, newCommentData)
 		.then((res) => {
@@ -157,6 +174,10 @@ export const getUserData = (userHandle) => (dispatch) => {
 			dispatch({
 				type: SET_POSTS,
 				payload: res.data.posts,
+			});
+			dispatch({
+				type: SET_PROFILE,
+				payload: res.data.user,
 			});
 			dispatch({ type: STOP_LOADING_UI });
 		})

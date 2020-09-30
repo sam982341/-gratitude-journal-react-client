@@ -10,6 +10,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import InputAdornment from '@material-ui/core/InputAdornment';
 
 // Redux
 import { createPost, clearErrors } from '../../redux/actions/dataActions';
@@ -37,8 +38,8 @@ const styles = (theme) => ({
 	formContainer: {
 		margin: '30px 20px 10px 20px',
 	},
-	resize: {
-		fontSize: 20,
+	inputAdornment: {
+		marginBottom: 2,
 	},
 });
 
@@ -84,9 +85,6 @@ class CreatePostForm extends Component {
 			<Card>
 				<form onSubmit={this.handleSubmit} className={classes.formContainer}>
 					<div className={classes.inputForm}>
-						<Typography className={classes.gratefulForText} variant="h5">
-							I am grateful for{' '}
-						</Typography>
 						<TextField
 							id="post"
 							label="What are you grateful for?"
@@ -94,9 +92,14 @@ class CreatePostForm extends Component {
 							name="body"
 							multiline
 							InputProps={{
-								classes: {
-									input: classes.resize,
-								},
+								startAdornment: (
+									<InputAdornment
+										position="start"
+										className={classes.inputAdornment}
+									>
+										I am grateful for
+									</InputAdornment>
+								),
 							}}
 							placeholder="the beautiful weather!"
 							error={errors.body ? true : false}
@@ -118,6 +121,7 @@ class CreatePostForm extends Component {
 						color="primary"
 						variant="contained"
 						size="small"
+						disabled={loading}
 					>
 						Submit
 						{loading && (

@@ -13,14 +13,9 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import { connect } from 'react-redux';
 import { getPosts } from '../redux/actions/dataActions';
 
-const styles = {
-	progressContainerPosts: {
-		display: 'flex',
-		alignItems: 'center',
-		justifyContent: 'center',
-		marginTop: 60,
-	},
-};
+const styles = (theme) => ({
+	...theme.global,
+});
 
 class home extends Component {
 	componentDidMount() {

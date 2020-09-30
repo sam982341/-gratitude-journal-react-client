@@ -7,12 +7,14 @@ import {
 	DELETE_POST,
 	CREATE_POST,
 	SUBMIT_COMMENT,
+	SET_PROFILE,
 } from '../types';
 
 const initialState = {
 	posts: [],
 	post: {},
 	loading: false,
+	profile: {},
 };
 
 export default function (state = initialState, actions) {
@@ -32,6 +34,11 @@ export default function (state = initialState, actions) {
 			return {
 				...state,
 				post: actions.payload,
+			};
+		case SET_PROFILE:
+			return {
+				...state,
+				profile: actions.payload,
 			};
 		case UNLIKE_POST:
 		case LIKE_POST:

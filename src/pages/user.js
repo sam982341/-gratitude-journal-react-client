@@ -11,68 +11,43 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 
 // Redux
 import { connect } from 'react-redux';
-import { getUserData, getUserPosts } from '../redux/actions/dataActions';
+import { getUserPosts, getUserProfile } from '../redux/actions/dataActions';
 
 const styles = (theme) => ({
 	...theme.global,
 });
 
 class user extends Component {
-	state = {
-		profile: null,
-		postIdParam: null,
-		working: false,
-	};
-
 	componentDidMount() {
 		const handle = this.props.match.params.handle;
-		const postId = this.props.match.params.postId;
-
 		this.props.getUserPosts(handle);
-
-		if (postId) {
-			this.setState({
-				postIdParam: postId,
-				working: true,
-			});
-		}
-
-		this.props.getUserData(handle);
-		axios
-			.get(`/user/${handle}`)
-			.then((res) => {
-				this.setState({
-					profile: res.data.user,
-				});
-			})
-			.catch((err) => {
-				console.log(err);
-			});
+		this.props.getUserProfile(handle);
 	}
 
 	render() {
-		const { posts, loading } = this.props.data;
+		const {
+			posts,
+			loading,
+			profile: { user },
+		} = this.props.data;
 		const { classes } = this.props;
-		const { postIdParam } = this.state;
 
-		const userPostsMarkup = loading ? (
-			<div className={classes.progressContainerPosts}>
-				<CircularProgress />
-			</div>
-		) : posts === null ? (
-			<p>No Posts</p>
-		) : !postIdParam ? (
+		const userPostsMarkup = !loading ? (
 			posts.map((post) => {
 				return <Post key={post.postId} post={post} />;
 			})
 		) : (
-			posts.map((post) => {
-				if (post.postId !== postIdParam) {
-					return <Post key={post.postId} post={post} />;
-				} else {
-					return <Post key={post.postId} post={post} openDialog />;
-				}
-			})
+			<div className={classes.progressContainerPosts}>
+				<CircularProgress />
+			</div>
+		);
+
+		const userProfileMarkup = user ? (
+			<StaticProfile user={user} />
+		) : (
+			<div className={classes.progressContainerPosts}>
+				<CircularProgress />
+			</div>
 		);
 
 		return (
@@ -81,13 +56,7 @@ class user extends Component {
 					{userPostsMarkup}
 				</Grid>
 				<Grid item sm={4} xs={12}>
-					{this.state.profile === null ? (
-						<div className={classes.progressContainerPosts}>
-							<CircularProgress />
-						</div>
-					) : (
-						<StaticProfile profile={this.state.profile} />
-					)}
+					{userProfileMarkup}
 				</Grid>
 			</Grid>
 		);
@@ -95,7 +64,7 @@ class user extends Component {
 }
 
 user.propTypes = {
-	getUserData: PropTypes.func.isRequired,
+	getUserPosts: PropTypes.func.isRequired,
 	data: PropTypes.object.isRequired,
 };
 
@@ -105,7 +74,7 @@ const mapStateToProps = (state) => ({
 
 const mapActionsToProps = {
 	getUserPosts,
-	getUserData,
+	getUserProfile,
 };
 
 export default connect(

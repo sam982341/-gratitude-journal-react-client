@@ -8,6 +8,12 @@ export default {
 		},
 	},
 	global: {
+		progressContainerPosts: {
+			display: 'flex',
+			alignItems: 'center',
+			justifyContent: 'center',
+			marginTop: 60,
+		},
 		form: {
 			textAlign: 'center',
 		},

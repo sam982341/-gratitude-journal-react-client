@@ -43,7 +43,11 @@ class CommentForm extends Component {
 	};
 
 	render() {
-		const { classes, authenticated } = this.props;
+		const {
+			classes,
+			authenticated,
+			UI: { loading },
+		} = this.props;
 		const { errors } = this.state;
 
 		const commentFormMarkup = authenticated ? (
@@ -73,7 +77,12 @@ class CommentForm extends Component {
 						}}
 						fullWidth
 					/>
-					<Button type="submit" variant="contained" color="primary">
+					<Button
+						type="submit"
+						variant="contained"
+						color="primary"
+						disabled={loading}
+					>
 						Submit
 					</Button>
 				</form>
