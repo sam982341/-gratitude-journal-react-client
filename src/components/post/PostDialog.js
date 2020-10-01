@@ -62,6 +62,9 @@ const styles = (theme) => ({
 		position: 'absolute',
 		right: 0,
 		marginRight: '20px',
+		'@media (max-width: 780px)': {
+			display: 'none',
+		},
 	},
 	chatButton: {},
 	postDialogContent: {

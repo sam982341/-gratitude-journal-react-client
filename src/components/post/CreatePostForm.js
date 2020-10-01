@@ -68,7 +68,7 @@ class CreatePostForm extends Component {
 			});
 		}
 		if (!nextProps.UI.errors && !nextProps.UI.loading) {
-			this.setState({ body: '', open: false, errors: {} });
+			this.setState({ body: '', errors: {} });
 		}
 	}
 
@@ -90,6 +90,7 @@ class CreatePostForm extends Component {
 							label="What are you grateful for?"
 							type="text"
 							name="body"
+							value={this.state.body}
 							multiline
 							InputProps={{
 								startAdornment: (
@@ -110,6 +111,7 @@ class CreatePostForm extends Component {
 								if (event.key === 'Enter') {
 									event.preventDefault();
 									this.props.createPost({ body: this.state.body });
+									this.setState({ body: '' });
 								}
 							}}
 							fullWidth
