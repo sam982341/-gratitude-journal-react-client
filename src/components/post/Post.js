@@ -36,8 +36,8 @@ const styles = (styles) => ({
 			opacity: 0.8,
 		},
 		'@media (max-width: 780px)': {
-			maxWidth: 75,
-			height: 75,
+			width: 60,
+			height: 60,
 		},
 	},
 	content: {
@@ -117,13 +117,17 @@ class Post extends Component {
 						</Typography>
 						<LikeButton postId={postId} />
 						<span>{likeCount} Likes</span>
-						<CustomIconButton tip="Comments">
-							<ChatIcon color="primary" />
-						</CustomIconButton>
+						<PostDialog
+							postId={postId}
+							userHandle={userHandle}
+							icon={'chat'}
+							openDialog={this.props.openDialog}
+						/>
 						<span>{commentCount} Comments</span>
 						<PostDialog
 							postId={postId}
 							userHandle={userHandle}
+							icon={'unfold'}
 							openDialog={this.props.openDialog}
 						/>
 					</CardContent>

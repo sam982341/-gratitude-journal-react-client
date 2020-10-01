@@ -8,6 +8,8 @@ import {
 	CREATE_POST,
 	SUBMIT_COMMENT,
 	SET_PROFILE,
+	SET_LAST_VISIBLE,
+	SET_POSTS_NEXT,
 } from '../types';
 
 const initialState = {
@@ -15,6 +17,8 @@ const initialState = {
 	post: {},
 	loading: false,
 	profile: {},
+	lastVisible: null,
+	loadingMore: false,
 };
 
 export default function (state = initialState, actions) {
@@ -29,6 +33,11 @@ export default function (state = initialState, actions) {
 				...state,
 				posts: actions.payload,
 				loading: false,
+			};
+		case SET_POSTS_NEXT:
+			return {
+				...state,
+				posts: [...state.posts, ...actions.payload],
 			};
 		case SET_POST:
 			return {
@@ -72,6 +81,11 @@ export default function (state = initialState, actions) {
 					...state.post,
 					comments: [actions.payload, ...state.post.comments],
 				},
+			};
+		case SET_LAST_VISIBLE:
+			return {
+				...state,
+				lastVisible: actions.payload[actions.payload.length - 1].createdAt,
 			};
 		default:
 			return state;

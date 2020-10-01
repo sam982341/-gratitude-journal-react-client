@@ -50,6 +50,16 @@ const styles = {
 		alignItems: 'center',
 		justifyContent: 'center',
 	},
+	navContainer: {
+		color: '#757575',
+		backgroundColor: '#fff',
+		width: '100%',
+		display: 'flex',
+		justifyContent: 'center',
+		'@media (max-width: 780px)': {
+			padding: 0,
+		},
+	},
 };
 
 class Navbar extends Component {
@@ -62,7 +72,7 @@ class Navbar extends Component {
 
 		return (
 			<AppBar>
-				<Toolbar className="nav-container">
+				<Toolbar className={classes.navContainer}>
 					{!authenticated ? (
 						<Fragment>
 							<div className={classes.logoContainer}>

@@ -12,6 +12,8 @@ import {
 	STOP_LOADING_UI,
 	SUBMIT_COMMENT,
 	SET_PROFILE,
+	SET_LAST_VISIBLE,
+	SET_POSTS_NEXT,
 } from '../types';
 import axios from 'axios';
 
@@ -23,6 +25,52 @@ export const getPosts = () => (dispatch) => {
 		.then((res) => {
 			dispatch({
 				type: SET_POSTS,
+				payload: res.data,
+			});
+		})
+		.catch((err) => {
+			dispatch({
+				type: SET_POSTS,
+				payload: [],
+			});
+		});
+};
+
+// Get first 10 posts
+export const getPostsInfinite = () => (dispatch) => {
+	dispatch({ type: LOADING_DATA });
+	axios
+		.get('/posts/infinite')
+		.then((res) => {
+			dispatch({
+				type: SET_POSTS,
+				payload: res.data,
+			});
+			dispatch({
+				type: SET_LAST_VISIBLE,
+				payload: res.data,
+			});
+		})
+		.catch((err) => {
+			dispatch({
+				type: SET_POSTS,
+				payload: [],
+			});
+		});
+};
+
+// Get next 10 posts
+export const getPostsInfiniteNext = (lastVisible) => (dispatch) => {
+	console.log('get next set of posts running');
+	axios
+		.post('/posts/infinite/next', lastVisible)
+		.then((res) => {
+			dispatch({
+				type: SET_POSTS_NEXT,
+				payload: res.data,
+			});
+			dispatch({
+				type: SET_LAST_VISIBLE,
 				payload: res.data,
 			});
 		})

@@ -39,11 +39,11 @@ export class LikeButton extends Component {
 			</Link>
 		) : this.likedPost() ? (
 			<CustomIconButton tip="Unike" onClick={this.handleUnlikePost}>
-				<FavoriteIcon color="primary" />
+				<FavoriteIcon color="primary" style={{ marginLeft: -15 }} />
 			</CustomIconButton>
 		) : (
 			<CustomIconButton tip="Like" onClick={this.handleLikePost}>
-				<FavoriteBorderIcon color="primary" />
+				<FavoriteBorderIcon color="primary" style={{ marginLeft: -15 }} />
 			</CustomIconButton>
 		);
 

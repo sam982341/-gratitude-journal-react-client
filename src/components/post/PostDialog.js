@@ -30,7 +30,6 @@ import { getPost, clearErrors } from '../../redux/actions/dataActions';
 
 const styles = (theme) => ({
 	...theme.global,
-
 	profileImage: {
 		maxWidth: 150,
 		height: 150,
@@ -49,6 +48,9 @@ const styles = (theme) => ({
 	closeButton: {
 		position: 'absolute',
 		left: '90%',
+		'@media (max-width: 780px)': {
+			left: '88%',
+		},
 	},
 	progressContainer: {
 		display: 'flex',
@@ -61,8 +63,12 @@ const styles = (theme) => ({
 		right: 0,
 		marginRight: '20px',
 	},
+	chatButton: {},
 	postDialogContent: {
 		padding: '15px 0 15px 0',
+		'@media (max-width: 780px)': {
+			padding: 0,
+		},
 	},
 });
 
@@ -89,6 +95,7 @@ class PostDialog extends Component {
 
 	render() {
 		const {
+			icon,
 			classes,
 			post: {
 				postId,
@@ -144,8 +151,8 @@ class PostDialog extends Component {
 			</Grid>
 		);
 
-		return (
-			<Fragment>
+		const iconMarkup =
+			icon === 'unfold' ? (
 				<CustomIconButton
 					onClick={this.handleOpen}
 					tip="Expand Post"
@@ -153,6 +160,19 @@ class PostDialog extends Component {
 				>
 					<UnfoldMoreIcon color="primary" />
 				</CustomIconButton>
+			) : (
+				<CustomIconButton
+					onClick={this.handleOpen}
+					tip="Comments"
+					tipClassName={classes.chatButton}
+				>
+					<ChatIcon color="primary" />
+				</CustomIconButton>
+			);
+
+		return (
+			<Fragment>
+				{iconMarkup}
 				<Dialog
 					open={this.state.open}
 					onClose={this.handleClose}

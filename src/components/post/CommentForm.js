@@ -16,12 +16,12 @@ const styles = (theme) => ({
 	commentInputContainer: {
 		width: '100%',
 		'@media (max-width: 780px)': {
-			width: '140%',
+			width: '120%',
 		},
 	},
 	visibleContainer: {
 		'@media (max-width: 780px)': {
-			width: '140%',
+			width: '120%',
 		},
 	},
 });
