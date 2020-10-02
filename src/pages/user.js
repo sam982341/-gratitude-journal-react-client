@@ -55,8 +55,12 @@ class user extends Component {
 			<div className={classes.progressContainerPosts}>
 				<CircularProgress />
 			</div>
-		) : (
+		) : !loading ? (
 			<StaticProfile user={user} />
+		) : (
+			<div className={classes.progressContainerPosts}>
+				<CircularProgress />
+			</div>
 		);
 
 		return (
