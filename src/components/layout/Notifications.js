@@ -53,17 +53,17 @@ class Notifications extends Component {
 			notifications.filter((not) => not.read === false).length > 0
 				? (notificationsIcon = (
 						<Badge
-							badgecontent={
+							badgeContent={
 								notifications.filter((not) => not.read === false).length
 							}
 							color="secondary"
 						>
-							<NotificationsIcon />
+							<NotificationsIcon color="primary" />
 						</Badge>
 				  ))
-				: (notificationsIcon = <NotificationsIcon />);
+				: (notificationsIcon = <NotificationsIcon color="primary" />);
 		} else {
-			notificationsIcon = <NotificationsIcon />;
+			notificationsIcon = <NotificationsIcon color="primary" />;
 		}
 
 		let notificationsMarkup =

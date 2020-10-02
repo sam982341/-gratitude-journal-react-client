@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import axios from 'axios';
 import Post from '../components/post/Post';
 import StaticProfile from '../components/profile/StaticProfile';
+import Profile from '../components/profile/Profile';
 
 //MUI
 import Grid from '@material-ui/core/Grid';
@@ -24,6 +25,14 @@ class user extends Component {
 		this.props.getUserProfile(handle);
 	}
 
+	componentWillReceiveProps(nextProps) {
+		if (nextProps.match.params.handle !== this.props.match.params.handle) {
+			const handle = nextProps.match.params.handle;
+			this.props.getUserPosts(handle);
+			this.props.getUserProfile(handle);
+		}
+	}
+
 	render() {
 		const {
 			posts,
@@ -42,12 +51,12 @@ class user extends Component {
 			</div>
 		);
 
-		const userProfileMarkup = user ? (
-			<StaticProfile user={user} />
-		) : (
+		const userProfileMarkup = !user ? (
 			<div className={classes.progressContainerPosts}>
 				<CircularProgress />
 			</div>
+		) : (
+			<StaticProfile user={user} />
 		);
 
 		return (

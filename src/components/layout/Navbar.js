@@ -10,6 +10,7 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Button from '@material-ui/core/Button';
 import withStyles from '@material-ui/core/styles/withStyles';
+import Tooltip from '@material-ui/core/Tooltip';
 
 // Redux
 import { connect } from 'react-redux';
@@ -31,6 +32,16 @@ const styles = {
 		position: 'absolute',
 		left: '10%',
 	},
+	imageUrlNav: {
+		height: 40,
+		width: 40,
+		borderRadius: '50%',
+		transition: '0.2s',
+		marginRight: 20,
+		'&:hover': {
+			opacity: 0.8,
+		},
+	},
 	logo: {
 		height: 40,
 	},
@@ -49,6 +60,7 @@ const styles = {
 		display: 'flex',
 		alignItems: 'center',
 		justifyContent: 'center',
+		marginLeft: 10,
 	},
 	navContainer: {
 		color: '#757575',
@@ -68,7 +80,13 @@ class Navbar extends Component {
 	};
 
 	render() {
-		const { classes, authenticated } = this.props;
+		const {
+			classes,
+			user: {
+				credentials: { handle, createdAt, imageUrl, bio, website, location },
+				authenticated,
+			},
+		} = this.props;
 
 		return (
 			<AppBar>
@@ -110,10 +128,17 @@ class Navbar extends Component {
 									<img className={classes.logo} src={lotus} alt="GRTFL" />
 								</Link>
 							</div>
-							<div className={classes.buttonContainer}>
-								<Notifications />
-							</div>
 							<div className={classes.logoutContainer}>
+								<Tooltip title="Profile">
+									<Link to={`/users/${handle}`}>
+										<img
+											src={imageUrl}
+											className={classes.imageUrlNav}
+											alt=""
+										/>
+									</Link>
+								</Tooltip>
+								<Notifications />
 								<Button
 									onClick={this.handleLogout}
 									variant="outlined"
@@ -138,6 +163,7 @@ Navbar.propTypes = {
 
 const mapStateToProps = (state) => ({
 	authenticated: state.user.authenticated,
+	user: state.user,
 });
 
 export default connect(mapStateToProps, { logoutUser })(
