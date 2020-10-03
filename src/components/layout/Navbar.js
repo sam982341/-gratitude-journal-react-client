@@ -139,7 +139,7 @@ class Navbar extends Component {
 										/>
 									</Link>
 								</Tooltip>
-								<ProfileDropdown imageUrl={imageUrl} />
+
 								<Notifications />
 								<Button
 									onClick={this.handleLogout}
