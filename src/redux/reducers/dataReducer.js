@@ -39,6 +39,7 @@ export default function (state = initialState, actions) {
 				...state,
 				posts: [...state.posts, ...actions.payload],
 			};
+
 		case SET_POST:
 			return {
 				...state,

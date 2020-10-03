@@ -3,6 +3,7 @@ import Post from '../components/post/Post';
 import Profile from '../components/profile/Profile';
 import PropTypes from 'prop-types';
 import CreatePostForm from '../components/post/CreatePostForm';
+import { Waypoint } from 'react-waypoint';
 
 // Mui Stuff
 import Grid from '@material-ui/core/grid';
@@ -28,32 +29,11 @@ const styles = (theme) => ({
 });
 
 class home extends Component {
-	state = {
-		scrolling: false,
-	};
-
 	componentDidMount() {
-		//this.props.getPostsInfinite();
-		this.props.getPosts();
-		//window.addEventListener('scroll', this.handleScroll);
+		this.props.getPostsInfinite();
 	}
 
-	componentWillUnmount() {
-		//window.removeEventListener('scroll', this.handleScroll);
-	}
-
-	handleScroll = (e) => {
-		console.log('scrolling');
-		const { scrolling } = this.state;
-		if (scrolling) return;
-		const lastElement = document.getElementById('scrollEnd');
-		const lastElementOffset = lastElement.offsetTop + lastElement.clientHeight;
-		const pageOffset = window.pageYOffset + window.innerHeight;
-		const bottomOffset = 100;
-		if (pageOffset > lastElementOffset - bottomOffset) this.onButtonClick();
-	};
-
-	onButtonClick = () => {
+	handleEnter = () => {
 		this.props.getPostsInfiniteNext({
 			lastVisible: this.props.data.lastVisible,
 		});
@@ -63,9 +43,12 @@ class home extends Component {
 		const { posts, loading } = this.props.data;
 		const { classes } = this.props;
 		let recentPostsMarkup = !loading ? (
-			posts.map((post) => {
-				return <Post key={post.postId} post={post} />;
-			})
+			<div>
+				{posts.map((post) => {
+					return <Post key={post.postId} post={post} />;
+				})}
+				<Waypoint onEnter={this.handleEnter} />
+			</div>
 		) : (
 			<div className={classes.progressContainerPosts}>
 				<CircularProgress />
@@ -82,7 +65,6 @@ class home extends Component {
 						{recentPostsMarkup}
 					</Grid>
 				</Grid>
-				{/* <hr id="scrollEnd" /> */}
 			</Fragment>
 		);
 	}

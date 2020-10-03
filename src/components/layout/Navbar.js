@@ -4,6 +4,7 @@ import lotus from '../../images/lotus.png';
 import PropTypes from 'prop-types';
 import CustomIconButton from '../../util/CustomIconButton';
 import Notifications from './Notifications';
+import ProfileDropdown from './ProfileDropdown';
 
 // MUI Stuff
 import AppBar from '@material-ui/core/AppBar';
@@ -138,6 +139,7 @@ class Navbar extends Component {
 										/>
 									</Link>
 								</Tooltip>
+								<ProfileDropdown imageUrl={imageUrl} />
 								<Notifications />
 								<Button
 									onClick={this.handleLogout}

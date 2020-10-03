@@ -61,10 +61,12 @@ export const getPostsInfinite = () => (dispatch) => {
 
 // Get next 10 posts
 export const getPostsInfiniteNext = (lastVisible) => (dispatch) => {
-	console.log('get next set of posts running');
 	axios
 		.post('/posts/infinite/next', lastVisible)
 		.then((res) => {
+			if (res.data.length === 0) {
+				return;
+			}
 			dispatch({
 				type: SET_POSTS_NEXT,
 				payload: res.data,
