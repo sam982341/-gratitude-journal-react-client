@@ -29,6 +29,11 @@ const styles = (theme) => ({
 	postsContainer: {
 		marginTop: 20,
 	},
+	homeProfile: {
+		'@media (max-width: 780px)': {
+			display: 'none',
+		},
+	},
 });
 
 class home extends Component {
@@ -61,7 +66,7 @@ class home extends Component {
 			<Fragment>
 				<Grid container spacing={10} className={classes.gridContainer}>
 					<Grid item sm={4} xs={12}>
-						<Profile />
+						<Profile className={classes.homeProfile} />
 					</Grid>
 					<Grid item sm={8} xs={12} className={classes.postsContainer}>
 						<CreatePostForm />

@@ -33,7 +33,10 @@ const styles = (theme) => ({
 		//	background: '#f8ecfa',
 		//},
 		'@media (max-width: 780px)': {
-			display: 'none',
+			position: 'relative',
+			width: '90%',
+			marginTop: 0,
+			padding: 20,
 		},
 	},
 	profile: {
@@ -44,6 +47,10 @@ const styles = (theme) => ({
 				position: 'absolute',
 				top: '80%',
 				left: '70%',
+				'@media (max-width: 780px)': {
+					top: '60%',
+					left: '57%',
+				},
 			},
 		},
 		'& .profile-image': {
@@ -52,6 +59,10 @@ const styles = (theme) => ({
 			objectFit: 'cover',
 			maxWidth: '100%',
 			borderRadius: '50%',
+			'@media (max-width: 780px)': {
+				width: 100,
+				height: 100,
+			},
 		},
 		'& .profile-details': {
 			textAlign: 'center',

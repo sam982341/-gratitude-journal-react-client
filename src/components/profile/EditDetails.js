@@ -22,6 +22,11 @@ const styles = (theme) => ({
 	...theme.spreadThis,
 	button: {
 		float: 'right',
+		'@media (max-width: 780px)': {
+			position: 'absolute',
+			top: '80%',
+			left: '85%',
+		},
 	},
 });
 
