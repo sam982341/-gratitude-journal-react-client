@@ -4,6 +4,7 @@ import axios from 'axios';
 import Post from '../components/post/Post';
 import StaticProfile from '../components/profile/StaticProfile';
 import Profile from '../components/profile/Profile';
+import { Waypoint } from 'react-waypoint';
 
 //MUI
 import Grid from '@material-ui/core/Grid';
@@ -12,7 +13,11 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 
 // Redux
 import { connect } from 'react-redux';
-import { getUserPosts, getUserProfile } from '../redux/actions/dataActions';
+import {
+	getUserPosts,
+	getUserProfile,
+	getUserPostsNext,
+} from '../redux/actions/dataActions';
 
 const styles = (theme) => ({
 	...theme.global,
@@ -33,18 +38,29 @@ class user extends Component {
 		}
 	}
 
+	handleEnter = () => {
+		const handle = this.props.match.params.handle;
+		this.props.getUserPostsNext(handle, {
+			lastVisible: this.props.data.lastVisible,
+		});
+	};
+
 	render() {
 		const {
 			posts,
 			loading,
 			profile: { user },
+			loadingMorePosts,
 		} = this.props.data;
 		const { classes } = this.props;
 
 		const userPostsMarkup = !loading ? (
-			posts.map((post) => {
-				return <Post key={post.postId} post={post} />;
-			})
+			<div>
+				{posts.map((post) => {
+					return <Post key={post.postId} post={post} />;
+				})}
+				<Waypoint onEnter={this.handleEnter} />
+			</div>
 		) : (
 			<div className={classes.progressContainerPosts}>
 				<CircularProgress />
@@ -70,6 +86,11 @@ class user extends Component {
 				</Grid>
 				<Grid item sm={8} xs={12}>
 					{userPostsMarkup}
+					{loadingMorePosts && (
+						<div className={classes.progressContainerPosts}>
+							<CircularProgress />
+						</div>
+					)}
 				</Grid>
 			</Grid>
 		);
@@ -88,6 +109,7 @@ const mapStateToProps = (state) => ({
 const mapActionsToProps = {
 	getUserPosts,
 	getUserProfile,
+	getUserPostsNext,
 };
 
 export default connect(

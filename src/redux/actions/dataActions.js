@@ -99,6 +99,38 @@ export const getUserPosts = (handle) => (dispatch) => {
 				type: SET_POSTS,
 				payload: res.data,
 			});
+			dispatch({
+				type: SET_LAST_VISIBLE,
+				payload: res.data,
+			});
+		})
+		.catch((err) => {
+			dispatch({
+				type: SET_POSTS,
+				payload: [],
+			});
+		});
+};
+
+export const getUserPostsNext = (handle, lastVisible) => (dispatch) => {
+	dispatch({ type: LOADING_MORE_POSTS });
+	axios
+		.post(`/users/${handle}/posts/next`, lastVisible)
+		.then((res) => {
+			if (res.data.length === 0) {
+				dispatch({
+					type: DONE_LOADING_POSTS,
+				});
+				return;
+			}
+			dispatch({
+				type: SET_POSTS_NEXT,
+				payload: res.data,
+			});
+			dispatch({
+				type: SET_LAST_VISIBLE,
+				payload: res.data,
+			});
 		})
 		.catch((err) => {
 			dispatch({
