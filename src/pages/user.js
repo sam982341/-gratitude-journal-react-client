@@ -52,6 +52,7 @@ class user extends Component {
 			profile: { user },
 			loadingMorePosts,
 		} = this.props.data;
+		const { credentials } = this.props.user;
 		const { classes } = this.props;
 
 		const userPostsMarkup = !loading ? (
@@ -71,12 +72,14 @@ class user extends Component {
 			<div className={classes.progressContainerPosts}>
 				<CircularProgress />
 			</div>
-		) : !loading ? (
-			<StaticProfile user={user} />
-		) : (
+		) : loading ? (
 			<div className={classes.progressContainerPosts}>
 				<CircularProgress />
 			</div>
+		) : user.handle === credentials.handle ? (
+			<Profile />
+		) : (
+			<StaticProfile user={user} />
 		);
 
 		return (
@@ -104,6 +107,7 @@ user.propTypes = {
 
 const mapStateToProps = (state) => ({
 	data: state.data,
+	user: state.user,
 });
 
 const mapActionsToProps = {

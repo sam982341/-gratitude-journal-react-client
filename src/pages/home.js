@@ -26,6 +26,9 @@ const styles = (theme) => ({
 			padding: 10,
 		},
 	},
+	postsContainer: {
+		marginTop: 20,
+	},
 });
 
 class home extends Component {
@@ -60,7 +63,7 @@ class home extends Component {
 					<Grid item sm={4} xs={12}>
 						<Profile />
 					</Grid>
-					<Grid item sm={8} xs={12}>
+					<Grid item sm={8} xs={12} className={classes.postsContainer}>
 						<CreatePostForm />
 						{recentPostsMarkup}
 						{loadingMorePosts && (
