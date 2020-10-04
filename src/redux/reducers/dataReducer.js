@@ -10,6 +10,8 @@ import {
 	SET_PROFILE,
 	SET_LAST_VISIBLE,
 	SET_POSTS_NEXT,
+	LOADING_MORE_POSTS,
+	DONE_LOADING_POSTS,
 } from '../types';
 
 const initialState = {
@@ -19,6 +21,7 @@ const initialState = {
 	profile: {},
 	lastVisible: null,
 	loadingMore: false,
+	loadingMorePosts: false,
 };
 
 export default function (state = initialState, actions) {
@@ -38,6 +41,7 @@ export default function (state = initialState, actions) {
 			return {
 				...state,
 				posts: [...state.posts, ...actions.payload],
+				loadingMorePosts: true,
 			};
 
 		case SET_POST:
@@ -87,6 +91,16 @@ export default function (state = initialState, actions) {
 			return {
 				...state,
 				lastVisible: actions.payload[actions.payload.length - 1].createdAt,
+			};
+		case LOADING_MORE_POSTS:
+			return {
+				...state,
+				loadingMorePosts: true,
+			};
+		case DONE_LOADING_POSTS:
+			return {
+				...state,
+				loadingMorePosts: false,
 			};
 		default:
 			return state;

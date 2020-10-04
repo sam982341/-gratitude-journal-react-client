@@ -14,6 +14,8 @@ import {
 	SET_PROFILE,
 	SET_LAST_VISIBLE,
 	SET_POSTS_NEXT,
+	LOADING_MORE_POSTS,
+	DONE_LOADING_POSTS,
 } from '../types';
 import axios from 'axios';
 
@@ -61,10 +63,14 @@ export const getPostsInfinite = () => (dispatch) => {
 
 // Get next 10 posts
 export const getPostsInfiniteNext = (lastVisible) => (dispatch) => {
+	dispatch({ type: LOADING_MORE_POSTS });
 	axios
 		.post('/posts/infinite/next', lastVisible)
 		.then((res) => {
 			if (res.data.length === 0) {
+				dispatch({
+					type: DONE_LOADING_POSTS,
+				});
 				return;
 			}
 			dispatch({

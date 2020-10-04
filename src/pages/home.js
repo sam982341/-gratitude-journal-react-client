@@ -40,7 +40,7 @@ class home extends Component {
 	};
 
 	render() {
-		const { posts, loading } = this.props.data;
+		const { posts, loading, loadingMorePosts } = this.props.data;
 		const { classes } = this.props;
 		let recentPostsMarkup = !loading ? (
 			<div>
@@ -63,6 +63,11 @@ class home extends Component {
 					<Grid item sm={8} xs={12}>
 						<CreatePostForm />
 						{recentPostsMarkup}
+						{loadingMorePosts && (
+							<div className={classes.progressContainerPosts}>
+								<CircularProgress />
+							</div>
+						)}
 					</Grid>
 				</Grid>
 			</Fragment>
