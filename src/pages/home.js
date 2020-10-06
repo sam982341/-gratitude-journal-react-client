@@ -65,8 +65,8 @@ class home extends Component {
 		return (
 			<Fragment>
 				<Grid container spacing={10} className={classes.gridContainer}>
-					<Grid item sm={4} xs={12}>
-						<Profile className={classes.homeProfile} />
+					<Grid item sm={4} xs={12} className={classes.homeProfile}>
+						<Profile />
 					</Grid>
 					<Grid item sm={8} xs={12} className={classes.postsContainer}>
 						<CreatePostForm />
