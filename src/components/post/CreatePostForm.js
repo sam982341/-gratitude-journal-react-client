@@ -3,9 +3,6 @@ import PropTypes from 'prop-types';
 
 // MUI
 import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
-import { Typography } from '@material-ui/core';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
@@ -83,14 +80,24 @@ class CreatePostForm extends Component {
 
 		let createPostMarkup = authenticated && (
 			<Card>
-				<form onSubmit={this.handleSubmit} className={classes.formContainer}>
+				<form
+					noValidate
+					onSubmit={this.handleSubmit}
+					className={classes.formContainer}
+					autoComplete="off"
+				>
 					<div className={classes.inputForm}>
 						<TextField
-							id="post"
-							label="What are you grateful for?"
-							type="text"
+							id="new"
 							name="body"
+							type="text"
+							label="What are you grateful for?"
+							className={classes.textField}
+							helperText={errors.body}
+							error={errors.body ? true : false}
 							value={this.state.body}
+							onChange={this.handleChange}
+							fullWidth
 							multiline
 							InputProps={{
 								startAdornment: (
@@ -102,11 +109,6 @@ class CreatePostForm extends Component {
 									</InputAdornment>
 								),
 							}}
-							placeholder="the beautiful weather!"
-							error={errors.body ? true : false}
-							helperText={errors.body}
-							className={classes.textField}
-							onChange={this.handleChange}
 							onKeyPress={(event) => {
 								if (event.key === 'Enter') {
 									event.preventDefault();
@@ -114,7 +116,6 @@ class CreatePostForm extends Component {
 									this.setState({ body: '' });
 								}
 							}}
-							fullWidth
 						/>
 					</div>
 					<Button

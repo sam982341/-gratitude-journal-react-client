@@ -109,7 +109,7 @@ class signup extends Component {
 						<TextField
 							id="handle"
 							name="handle"
-							type="text"
+							type="email"
 							label="Handle"
 							className={classes.textField}
 							helperText={errors.handle}
