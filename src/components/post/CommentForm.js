@@ -7,22 +7,34 @@ import { submitComment } from '../../redux/actions/dataActions';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
+import Card from '@material-ui/core/Card';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 // Redux
 import { connect } from 'react-redux';
 
 const styles = (theme) => ({
 	...theme.global,
-	commentInputContainer: {
-		width: '100%',
-		'@media (max-width: 780px)': {
-			width: '120%',
-		},
+	formContainer: {
+		margin: '30px 20px 10px 20px',
 	},
-	visibleContainer: {
-		'@media (max-width: 780px)': {
-			width: '120%',
-		},
+	submitButton: {
+		position: 'relative',
+		float: 'right',
+		marginTop: 10,
+		marginBottom: 20,
+	},
+	commentFormCard: {
+		marginTop: 0,
+		marginBottom: 0,
+		border: '1px solid #cacaca',
+		borderRadius: '0px',
+		padding: 15,
+	},
+	inputForm: {
+		display: 'flex',
+		alignItems: 'center',
+		justifyContent: 'center',
 	},
 });
 
@@ -59,43 +71,54 @@ class CommentForm extends Component {
 		const { errors } = this.state;
 
 		const commentFormMarkup = authenticated ? (
-			<Grid item sm={12} style={{ textAlign: 'center' }}>
-				<form
-					className={classes.commentInputContainer}
-					onSubmit={this.handleSubmitComment}
-				>
-					<TextField
-						autoFocus
-						label="Comment on Post"
-						type="text"
-						name="body"
-						multiline
-						error={errors.comment ? true : false}
-						helperText={errors.comment}
-						className={classes.textField}
-						value={this.state.body}
-						onChange={this.handleChange}
-						onKeyPress={(event) => {
-							if (event.key === 'Enter') {
-								event.preventDefault();
-								this.props.submitComment(this.props.postId, {
-									body: this.state.body,
-								});
-							}
-						}}
-						fullWidth
-					/>
-					<Button
-						type="submit"
-						variant="contained"
-						color="primary"
-						disabled={loading}
+			<Card className={classes.commentFormCard}>
+				<Grid item sm={12} style={{ textAlign: 'center' }}>
+					<form
+						className={classes.commentInputContainer}
+						onSubmit={this.handleSubmitComment}
 					>
-						Submit
-					</Button>
-				</form>
-				<hr className={classes.visibleContainer} />
-			</Grid>
+						<div className={classes.inputForm}>
+							<TextField
+								label="Comment"
+								type="text"
+								name="body"
+								multiline
+								fullWidth
+								error={errors.comment ? true : false}
+								helperText={errors.comment}
+								className={classes.textField}
+								value={this.state.body}
+								onChange={this.handleChange}
+								onKeyPress={(event) => {
+									if (event.key === 'Enter') {
+										event.preventDefault();
+										this.props.submitComment(this.props.postId, {
+											body: this.state.body,
+										});
+									}
+								}}
+							/>
+						</div>
+						<Button
+							type="submit"
+							variant="contained"
+							color="primary"
+							size="small"
+							className={classes.submitButtom}
+							disabled={loading}
+						>
+							Submit
+							{loading && (
+								<CircularProgress
+									size={30}
+									className={classes.progress}
+									color="secondary"
+								/>
+							)}
+						</Button>
+					</form>
+				</Grid>
+			</Card>
 		) : (
 			<div></div>
 		);

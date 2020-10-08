@@ -22,7 +22,8 @@ const styles = (theme) => ({
 	paper: {
 		padding: 20,
 		position: 'fixed',
-		marginTop: 20,
+		marginTop: 0,
+		borderRadius: '0px',
 		width: '20%',
 		transition: '0.3s',
 		//'&:hover': {

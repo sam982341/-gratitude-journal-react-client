@@ -69,9 +69,10 @@ class Notifications extends Component {
 		let notificationsMarkup =
 			notifications && notifications.length > 0 ? (
 				notifications.map((not) => {
+					console.log(not.postId);
 					const verb = not.type === 'like' ? 'liked' : 'commented on';
 					const time = dayjs(not.createdAt).fromNow();
-					const iconColor = not.read ? 'primary' : 'secondary';
+					const iconColor = not.read ? 'secondary' : 'primary';
 					const icon =
 						not.type === 'like' ? (
 							<FavoriteIcon color={iconColor} style={{ marginRight: 10 }} />
@@ -80,17 +81,14 @@ class Notifications extends Component {
 						);
 
 					return (
-						<MenuItem key={not.createdAt} onClick={this.handleClose}>
-							{icon}
-							<Typography
-								component={Link}
-								color="default"
-								variant="body1"
-								to={'/'}
-							>
-								{not.sender} {verb} your post {time}
-							</Typography>
-						</MenuItem>
+						<Link to={`/posts/${not.postId}`}>
+							<MenuItem key={not.createdAt} onClick={this.handleClose}>
+								{icon}
+								<Typography color={iconColor} variant="body1">
+									{not.sender} {verb} your post {time}
+								</Typography>
+							</MenuItem>
+						</Link>
 					);
 				})
 			) : (

@@ -22,11 +22,13 @@ export class LikeButton extends Component {
 			return false;
 		}
 	};
-	handleLikePost = () => {
+	handleLikePost = (e) => {
+		e.preventDefault();
 		this.props.likePost(this.props.postId);
 	};
 
-	handleUnlikePost = () => {
+	handleUnlikePost = (e) => {
+		e.preventDefault();
 		this.props.unlikePost(this.props.postId);
 	};
 	render() {
@@ -38,12 +40,12 @@ export class LikeButton extends Component {
 				</CustomIconButton>
 			</Link>
 		) : this.likedPost() ? (
-			<CustomIconButton tip="Unike" onClick={this.handleUnlikePost}>
-				<FavoriteIcon color="primary" style={{ marginLeft: -15 }} />
+			<CustomIconButton tip="Unlike" onClick={this.handleUnlikePost}>
+				<FavoriteIcon color="primary" />
 			</CustomIconButton>
 		) : (
 			<CustomIconButton tip="Like" onClick={this.handleLikePost}>
-				<FavoriteBorderIcon color="primary" style={{ marginLeft: -15 }} />
+				<FavoriteBorderIcon color="primary" />
 			</CustomIconButton>
 		);
 

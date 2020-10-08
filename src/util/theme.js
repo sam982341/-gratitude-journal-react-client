@@ -64,8 +64,10 @@ export default {
 		card: {
 			position: 'relative',
 			display: 'flex',
-			marginBottom: 20,
-			marginTop: 20,
+			marginBottom: 0,
+			marginTop: 0,
+			borderRadius: '0px',
+			border: '1px solid #cacaca',
 			//transition: '0.3s',
 			//'&:hover': {
 			//	background: '#f8ecfa',

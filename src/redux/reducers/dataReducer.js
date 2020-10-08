@@ -43,7 +43,6 @@ export default function (state = initialState, actions) {
 				posts: [...state.posts, ...actions.payload],
 				loadingMorePosts: true,
 			};
-
 		case SET_POST:
 			return {
 				...state,
@@ -84,7 +83,7 @@ export default function (state = initialState, actions) {
 				...state,
 				post: {
 					...state.post,
-					comments: [actions.payload, ...state.post.comments],
+					comments: [...state.post.comments, actions.payload],
 				},
 			};
 		case SET_LAST_VISIBLE:

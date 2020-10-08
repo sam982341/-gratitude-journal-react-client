@@ -139,7 +139,6 @@ class Navbar extends Component {
 										/>
 									</Link>
 								</Tooltip>
-
 								<Notifications />
 								<Button
 									onClick={this.handleLogout}

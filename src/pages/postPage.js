@@ -1,37 +1,32 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { Link } from 'react-router-dom';
-// import dayjs from 'dayjs';
-// import relativeTime from 'dayjs/plugin/relativeTime';
-import PropTypes from 'prop-types';
-import CustomIconButton from '../../util/CustomIconButton';
-import DeletePost from './DeletePost';
-import PostDialog from './PostDialog';
-import LikeButton from './LikeButton';
+import dayjs from 'dayjs';
+import relativeTime from 'dayjs/plugin/relativeTime';
+import LikeButton from '../components/post/LikeButton';
+import Comments from '../components/post/Comments';
+import DeletePost from '../components/post/DeletePost';
+import CommentForm from '../components/post/CommentForm';
 
-// Mui Stuff
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
-import { Typography } from '@material-ui/core';
+// MUI
 import withStyles from '@material-ui/core/styles/withStyles';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import { Card, Typography } from '@material-ui/core';
+import Grid from '@material-ui/core/Grid';
+import CardMedia from '@material-ui/core/CardMedia';
+import CardContent from '@material-ui/core/CardContent';
 
 // MUI Icons
 import ChatIcon from '@material-ui/icons/Chat';
-import UnfoldMoreIcon from '@material-ui/icons/UnfoldMore';
+import IconButton from '@material-ui/core/IconButton';
 
 // Redux
 import { connect } from 'react-redux';
-import { StayPrimaryLandscape } from '@material-ui/icons';
+import { getPost } from '../redux/actions/dataActions';
 
-// Dayjs
-import * as dayjs from 'dayjs';
-import * as relativeTime from 'dayjs/plugin/relativeTime';
-dayjs.extend(relativeTime);
-
-const styles = (styles) => ({
-	...styles.global,
+const styles = (theme) => ({
+	...theme.global,
 	image: {
-		width: 120,
+		maxWidth: 120,
 		height: 120,
 		objectFit: 'cover',
 		borderRadius: '50%',
@@ -79,9 +74,6 @@ const styles = (styles) => ({
 		borderRadius: '0px',
 		border: '1px solid #cacaca',
 		transition: '0.3s',
-		'&:hover': {
-			background: '#faf0fc',
-		},
 		'@media (max-width: 780px)': {
 			paddingTop: 10,
 		},
@@ -92,9 +84,35 @@ const styles = (styles) => ({
 	likeCommentContainer: {
 		marginLeft: '-15px',
 	},
+	containerPostPage: {
+		marginLeft: '-7px',
+		marginRight: '-7px',
+	},
+	postsContainer: {
+		marginTop: 0,
+		width: 600,
+	},
+	commentContainerNew: {
+		width: '100%',
+	},
+	commentFormAndCommentsContainer: {
+		paddingTop: 30,
+	},
 });
 
-class Post extends Component {
+class post extends Component {
+	componentDidMount() {
+		const postId = this.props.match.params.postId;
+		this.props.getPost(postId);
+	}
+
+	componentWillReceiveProps(nextProps) {
+		if (nextProps.match.params.postId !== this.props.match.params.postId) {
+			const postId = this.props.match.params.postId;
+			this.props.getPost(postId);
+		}
+	}
+
 	isUsersPost = () => {
 		if (this.props.user.credentials.handle === this.props.post.userHandle) {
 			return true;
@@ -104,27 +122,32 @@ class Post extends Component {
 	};
 
 	render() {
-		dayjs.extend(relativeTime);
 		const {
 			classes,
 			user: { authenticated },
 			post: {
+				postId,
 				body,
 				createdAt,
-				userImage,
-				userHandle,
-				postId,
 				likeCount,
 				commentCount,
+				userImage,
+				userHandle,
+				comments,
 			},
+			UI: { loading },
 		} = this.props;
 
 		const deleteButton = authenticated && this.isUsersPost() && (
 			<DeletePost postId={postId} />
 		);
 
-		return (
-			<Link to={`/posts/${postId}`}>
+		const postMarkup = loading ? (
+			<div className={classes.progressContainer}>
+				<CircularProgress size={50} />
+			</div>
+		) : (
+			<Fragment>
 				<Card className={classes.postCard}>
 					<div className={classes.userImageContainer}>
 						<CardMedia
@@ -158,31 +181,42 @@ class Post extends Component {
 							<div className={classes.likeCommentContainer}>
 								<LikeButton postId={postId} />
 								<span>{likeCount} Likes</span>
-								<PostDialog
-									postId={postId}
-									userHandle={userHandle}
-									icon={'chat'}
-									openDialog={this.props.openDialog}
-								/>
+								<IconButton>
+									<ChatIcon color="primary" />
+								</IconButton>
 								<span>{commentCount} Comments</span>
 							</div>
 						</CardContent>
 					</div>
 				</Card>
-			</Link>
+				<div className={classes.commentFormAndCommentsContainer}>
+					<CommentForm postId={postId} />
+					<div className={classes.commentContainerNew}>
+						<Comments comments={comments} replyHandle={userHandle} />
+					</div>
+				</div>
+			</Fragment>
+		);
+
+		return (
+			<Grid
+				container
+				spacing={0}
+				justify="center"
+				className={classes.gridContainer}
+			>
+				<Grid item sm={8} xs={12} className={classes.postsContainer}>
+					<div className={classes.containerPostPage}>{postMarkup}</div>
+				</Grid>
+			</Grid>
 		);
 	}
 }
 
-Post.propTypes = {
-	classes: PropTypes.object.isRequired,
-	user: PropTypes.object.isRequired,
-	post: PropTypes.object.isRequired,
-	openDialog: PropTypes.bool,
-};
-
 const mapStateToProps = (state) => ({
+	post: state.data.post,
+	UI: state.UI,
 	user: state.user,
 });
 
-export default connect(mapStateToProps)(withStyles(styles)(Post));
+export default connect(mapStateToProps, { getPost })(withStyles(styles)(post));

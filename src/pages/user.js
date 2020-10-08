@@ -17,6 +17,7 @@ import {
 	getUserPosts,
 	getUserProfile,
 	getUserPostsNext,
+	stopNextPostLoader,
 } from '../redux/actions/dataActions';
 
 const styles = (theme) => ({
@@ -25,6 +26,7 @@ const styles = (theme) => ({
 
 class user extends Component {
 	componentDidMount() {
+		this.props.stopNextPostLoader();
 		const handle = this.props.match.params.handle;
 		this.props.getUserPosts(handle);
 		this.props.getUserProfile(handle);
@@ -114,6 +116,7 @@ const mapActionsToProps = {
 	getUserPosts,
 	getUserProfile,
 	getUserPostsNext,
+	stopNextPostLoader,
 };
 
 export default connect(

@@ -8,6 +8,7 @@ import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import InputAdornment from '@material-ui/core/InputAdornment';
+import Grid from '@material-ui/core/Grid';
 
 // Redux
 import { createPost, clearErrors } from '../../redux/actions/dataActions';
@@ -37,6 +38,12 @@ const styles = (theme) => ({
 	},
 	inputAdornment: {
 		marginBottom: 2,
+	},
+	createPostCard: {
+		marginTop: 0,
+		marginBottom: 0,
+		border: '1px solid #cacaca',
+		borderRadius: '0px',
 	},
 });
 
@@ -79,63 +86,65 @@ class CreatePostForm extends Component {
 		const { errors } = this.state;
 
 		let createPostMarkup = authenticated && (
-			<Card>
-				<form
-					noValidate
-					onSubmit={this.handleSubmit}
-					className={classes.formContainer}
-					autoComplete="off"
-				>
-					<div className={classes.inputForm}>
-						<TextField
-							id="new"
-							name="body"
-							type="text"
-							label="What are you grateful for?"
-							className={classes.textField}
-							helperText={errors.body}
-							error={errors.body ? true : false}
-							value={this.state.body}
-							onChange={this.handleChange}
-							fullWidth
-							multiline
-							InputProps={{
-								startAdornment: (
-									<InputAdornment
-										position="start"
-										className={classes.inputAdornment}
-									>
-										I am grateful for
-									</InputAdornment>
-								),
-							}}
-							onKeyPress={(event) => {
-								if (event.key === 'Enter') {
-									event.preventDefault();
-									this.props.createPost({ body: this.state.body });
-									this.setState({ body: '' });
-								}
-							}}
-						/>
-					</div>
-					<Button
-						type="submit"
-						className={classes.submitButton}
-						color="primary"
-						variant="contained"
-						size="small"
-						disabled={loading}
+			<Card className={classes.createPostCard}>
+				<Grid item sm={12} style={{ textAlign: 'center' }}>
+					<form
+						noValidate
+						onSubmit={this.handleSubmit}
+						className={classes.formContainer}
+						autoComplete="off"
 					>
-						Submit
-						{loading && (
-							<CircularProgress
-								size={30}
-								className={classes.progress}
-								color="secondary"
+						<div className={classes.inputForm}>
+							<TextField
+								id="new"
+								name="body"
+								type="text"
+								label="What are you grateful for?"
+								className={classes.textField}
+								helperText={errors.body}
+								error={errors.body ? true : false}
+								value={this.state.body}
+								onChange={this.handleChange}
+								fullWidth
+								multiline
+								InputProps={{
+									startAdornment: (
+										<InputAdornment
+											position="start"
+											className={classes.inputAdornment}
+										>
+											I am grateful for
+										</InputAdornment>
+									),
+								}}
+								onKeyPress={(event) => {
+									if (event.key === 'Enter') {
+										event.preventDefault();
+										this.props.createPost({ body: this.state.body });
+										this.setState({ body: '' });
+									}
+								}}
 							/>
-						)}
-					</Button>
-				</form>
+						</div>
+						<Button
+							type="submit"
+							className={classes.submitButton}
+							color="primary"
+							variant="contained"
+							size="small"
+							disabled={loading}
+						>
+							Submit
+							{loading && (
+								<CircularProgress
+									size={30}
+									className={classes.progress}
+									color="secondary"
+								/>
+							)}
+						</Button>
+					</form>
+				</Grid>
 			</Card>
 		);
 

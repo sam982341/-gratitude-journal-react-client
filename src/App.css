@@ -11,6 +11,13 @@ body {
 	max-width: 1200px;
 }
 
+/* @media only screen and (max-width: 780px) {
+	.container {
+		margin-left: -7px;
+		margin-right: -7px;
+	}
+} */
+
 .nav-container {
 	color: #757575;
 	background-color: #fff;
@@ -28,5 +35,5 @@ a {
 }
 
 .test {
-	background-color: #cacaca;
+	background-color: #fdf5ff;
 }

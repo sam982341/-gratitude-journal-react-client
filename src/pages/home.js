@@ -17,28 +17,36 @@ import {
 	getPosts,
 	getPostsInfinite,
 	getPostsInfiniteNext,
+	stopNextPostLoader,
 } from '../redux/actions/dataActions';
 
 const styles = (theme) => ({
 	...theme.global,
-	gridContainer: {
-		'@media (max-width: 780px)': {
-			padding: 10,
+	MuiContainer: {
+		root: {
+			marginRight: '-7px',
+			marginLeft: '-7px',
 		},
 	},
 	postsContainer: {
-		marginTop: 20,
+		marginTop: 0,
+		width: 600,
 	},
 	homeProfile: {
 		'@media (max-width: 780px)': {
 			display: 'none',
 		},
 	},
+	postsContainerNew: {
+		marginLeft: '-7px',
+		marginRight: '-7px',
+	},
 });
 
 class home extends Component {
 	componentDidMount() {
 		this.props.getPostsInfinite();
+		this.props.stopNextPostLoader();
 	}
 
 	handleEnter = () => {
@@ -64,18 +72,20 @@ class home extends Component {
 		);
 		return (
 			<Fragment>
-				<Grid container spacing={10} className={classes.gridContainer}>
+				<Grid container spacing={0}>
 					<Grid item sm={4} xs={12} className={classes.homeProfile}>
 						<Profile />
 					</Grid>
 					<Grid item sm={8} xs={12} className={classes.postsContainer}>
-						<CreatePostForm />
-						{recentPostsMarkup}
-						{loadingMorePosts && (
-							<div className={classes.progressContainerPosts}>
-								<CircularProgress />
-							</div>
-						)}
+						<div className={classes.postsContainerNew}>
+							<CreatePostForm />
+							{recentPostsMarkup}
+							{loadingMorePosts && (
+								<div className={classes.progressContainerPosts}>
+									<CircularProgress />
+								</div>
+							)}
+						</div>
 					</Grid>
 				</Grid>
 			</Fragment>
@@ -99,6 +109,7 @@ const mapActionsToProps = {
 	getPostsInfinite,
 	getPostsInfiniteNext,
 	getPosts,
+	stopNextPostLoader,
 };
 
 export default connect(

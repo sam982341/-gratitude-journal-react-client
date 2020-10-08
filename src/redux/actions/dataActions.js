@@ -170,6 +170,12 @@ export const getPost = (postId) => (dispatch) => {
 		.catch((err) => console.log(err));
 };
 
+export const stopNextPostLoader = () => (dispatch) => {
+	dispatch({
+		type: DONE_LOADING_POSTS,
+	});
+};
+
 // Like a post
 export const likePost = (postId) => (dispatch) => {
 	axios
@@ -235,7 +241,6 @@ export const createPost = (newPostData) => (dispatch) => {
 
 // Comment on a post
 export const submitComment = (postId, newCommentData) => (dispatch) => {
-	dispatch({ type: LOADING_UI });
 	axios
 		.post(`/post/${postId}/comment`, newCommentData)
 		.then((res) => {
