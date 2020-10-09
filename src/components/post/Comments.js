@@ -8,6 +8,7 @@ import dayjs from 'dayjs';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Card from '@material-ui/core/Card';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 const styles = (theme) => ({
 	...theme.global,
@@ -52,7 +53,9 @@ class Comments extends Component {
 	render() {
 		const { classes, comments, replyHandle } = this.props;
 		const commentsMarkup = !comments ? (
-			<p>Loading</p>
+			<div className={classes.progressContainerPosts}>
+				<CircularProgress size={50} />
+			</div>
 		) : (
 			<Fragment>
 				{comments.map((comment, index) => {

@@ -143,7 +143,7 @@ class post extends Component {
 		);
 
 		const postMarkup = loading ? (
-			<div className={classes.progressContainer}>
+			<div className={classes.progressContainerPosts}>
 				<CircularProgress size={50} />
 			</div>
 		) : (
