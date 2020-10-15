@@ -29,13 +29,16 @@ class DeletePost extends Component {
 		open: false,
 	};
 
-	handleOpen = () => {
+	handleOpen = (e) => {
+		e.preventDefault();
 		this.setState({ open: true });
 	};
-	handleClose = () => {
+	handleClose = (e) => {
+		e.preventDefault();
 		this.setState({ open: false });
 	};
-	handleDeletePost = () => {
+	handleDeletePost = (e) => {
+		e.preventDefault();
 		this.props.deletePost(this.props.postId);
 		this.setState({ open: false });
 	};
@@ -54,6 +57,7 @@ class DeletePost extends Component {
 				<Dialog
 					open={this.state.open}
 					onClose={this.handleClose}
+					onBackdropClick={this.handleClose}
 					fullWidth
 					maxWidth="sm"
 				>

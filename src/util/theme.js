@@ -86,5 +86,13 @@ export default {
 			marginBottom: 20,
 			marginTop: 20,
 		},
+		handleAndStreak: {
+			display: 'flex',
+			alignItems: 'center',
+		},
+		dailyStreakText: {
+			marginLeft: 6,
+			color: '#e1b5ff',
+		},
 	},
 };

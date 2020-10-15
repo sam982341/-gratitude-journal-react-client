@@ -116,11 +116,18 @@ class Post extends Component {
 				postId,
 				likeCount,
 				commentCount,
+				dailyStreak,
 			},
 		} = this.props;
 
 		const deleteButton = authenticated && this.isUsersPost() && (
 			<DeletePost postId={postId} />
+		);
+
+		const dailyStreakMarkup = dailyStreak > 0 && (
+			<Typography className={classes.dailyStreakText} variant="body2">
+				{dailyStreak} day streak
+			</Typography>
 		);
 
 		return (
@@ -137,18 +144,22 @@ class Post extends Component {
 					</div>
 					<div className={classes.contentContainer}>
 						<CardContent className={classes.content}>
-							<Typography
-								className={classes.userHandle}
-								variant="h6"
-								component={Link}
-								to={`/users/${userHandle}`}
-							>
-								{`@${userHandle}`}
-							</Typography>
+							<div className={classes.handleAndStreak}>
+								<Typography
+									className={classes.userHandle}
+									variant="h6"
+									component={Link}
+									to={`/users/${userHandle}`}
+								>
+									{`@${userHandle}`}{' '}
+								</Typography>
+								{dailyStreakMarkup}
+							</div>
 							{deleteButton}
 							<Typography className={classes.timeText} variant="body2">
 								{dayjs(createdAt).fromNow()}
 							</Typography>
+
 							<Typography variant="body1">
 								<span className={classes.gratefulTextStart}>
 									I am grateful for{' '}

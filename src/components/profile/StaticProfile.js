@@ -78,8 +78,27 @@ class StaticProfile extends Component {
 	render() {
 		const {
 			classes,
-			user: { handle, createdAt, imageUrl, bio, website, location },
+			user: {
+				handle,
+				createdAt,
+				imageUrl,
+				bio,
+				website,
+				location,
+				dailyStreak,
+			},
 		} = this.props;
+
+		const dailyStreakMarkup =
+			dailyStreak === 0 ? (
+				<Typography variant="body3">
+					{dailyStreak} day gratitude streak 🙁
+				</Typography>
+			) : (
+				<Typography variant="body3">
+					{dailyStreak} day gratitude streak <span role="img">🔥</span>
+				</Typography>
+			);
 
 		return (
 			<Paper className={classes.paper}>
@@ -97,6 +116,8 @@ class StaticProfile extends Component {
 						>
 							@{handle}
 						</MuiLink>
+						<hr />
+						{dailyStreakMarkup}
 						<hr />
 						{bio && <Typography variant="body2">{bio}</Typography>}
 						<hr />

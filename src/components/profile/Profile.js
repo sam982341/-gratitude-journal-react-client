@@ -11,6 +11,7 @@ import Paper from '@material-ui/core/Paper';
 import MuiLink from '@material-ui/core/Link';
 import Typography from '@material-ui/core/Typography';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import Skeleton from '@material-ui/lab/Skeleton';
 
 // Mui Icons
 import LocationOn from '@material-ui/icons/LocationOn';
@@ -118,11 +119,30 @@ class Profile extends Component {
 		const {
 			classes,
 			user: {
-				credentials: { handle, createdAt, imageUrl, bio, website, location },
+				credentials: {
+					handle,
+					createdAt,
+					imageUrl,
+					bio,
+					website,
+					location,
+					dailyStreak,
+				},
 				loading,
 				authenticated,
 			},
 		} = this.props;
+
+		let dailyStreakMarkup =
+			dailyStreak === 0 ? (
+				<Typography variant="body3">
+					{dailyStreak} day gratitude streak 🙁
+				</Typography>
+			) : (
+				<Typography variant="body3">
+					{dailyStreak} day gratitude streak <span role="img">🔥</span>
+				</Typography>
+			);
 
 		let profileMarkup = !loading ? (
 			authenticated ? (
@@ -154,6 +174,8 @@ class Profile extends Component {
 							>
 								@{handle}
 							</MuiLink>
+							<hr />
+							{dailyStreakMarkup}
 							<hr />
 							{bio && <Typography variant="body2">{bio}</Typography>}
 							<hr />
@@ -187,9 +209,12 @@ class Profile extends Component {
 				</Paper>
 			)
 		) : (
-			<div className={classes.progressContainerProfile}>
-				<CircularProgress />
-			</div>
+			<Fragment>
+				<div className={classes.progressContainerProfile}>
+					<CircularProgress />
+				</div>
+				{/* <Skeleton variant="rect" width={210} height={400} animation="pulse" /> */}
+			</Fragment>
 		);
 
 		return profileMarkup;

@@ -134,12 +134,19 @@ class post extends Component {
 				userImage,
 				userHandle,
 				comments,
+				dailyStreak,
 			},
 			UI: { loading },
 		} = this.props;
 
 		const deleteButton = authenticated && this.isUsersPost() && (
 			<DeletePost postId={postId} />
+		);
+
+		const dailyStreakMarkup = dailyStreak > 0 && (
+			<Typography className={classes.dailyStreakText} variant="body2">
+				{dailyStreak} day streak
+			</Typography>
 		);
 
 		const postMarkup = loading ? (
@@ -160,14 +167,17 @@ class post extends Component {
 					</div>
 					<div className={classes.contentContainer}>
 						<CardContent className={classes.content}>
-							<Typography
-								className={classes.userHandle}
-								variant="h6"
-								component={Link}
-								to={`/users/${userHandle}`}
-							>
-								{`@${userHandle}`}
-							</Typography>
+							<div className={classes.handleAndStreak}>
+								<Typography
+									className={classes.userHandle}
+									variant="h6"
+									component={Link}
+									to={`/users/${userHandle}`}
+								>
+									{`@${userHandle}`}
+								</Typography>
+								{dailyStreakMarkup}
+							</div>
 							{deleteButton}
 							<Typography className={classes.timeText} variant="body2">
 								{dayjs(createdAt).fromNow()}
