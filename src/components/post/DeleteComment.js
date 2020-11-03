@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react';
 import withStyles from '@material-ui/core/styles/withStyles';
 import PropTypes from 'prop-types';
 import CustomIconButton from '../../util/CustomIconButton';
-import { deletePost } from '../../redux/actions/dataActions';
+import { deleteComment } from '../../redux/actions/dataActions';
 
 // Mui
 import Button from '@material-ui/core/Button';
@@ -19,13 +19,12 @@ import { connect } from 'react-redux';
 const styles = {
 	deleteButton: {
 		position: 'absolute',
-		right: 10,
-		top: 15,
-		marginRight: '10px',
+		right: 0,
+		marginRight: '20px',
 	},
 };
 
-class DeletePost extends Component {
+class DeleteComment extends Component {
 	state = {
 		open: false,
 	};
@@ -40,7 +39,7 @@ class DeletePost extends Component {
 	};
 	handleDeletePost = (e) => {
 		e.preventDefault();
-		this.props.deletePost(this.props.postId);
+		this.props.deleteComment(this.props.commentId);
 		this.setState({ open: false });
 	};
 
@@ -77,10 +76,12 @@ class DeletePost extends Component {
 	}
 }
 
-DeletePost.propTypes = {
-	deletePost: PropTypes.func.isRequired,
+DeleteComment.propTypes = {
+	deleteComment: PropTypes.func.isRequired,
 	classes: PropTypes.object.isRequired,
 	postId: PropTypes.string.isRequired,
 };
 
-export default connect(null, { deletePost })(withStyles(styles)(DeletePost));
+export default connect(null, { deleteComment })(
+	withStyles(styles)(DeleteComment)
+);

@@ -6,6 +6,7 @@ import LikeButton from '../components/post/LikeButton';
 import Comments from '../components/post/Comments';
 import DeletePost from '../components/post/DeletePost';
 import CommentForm from '../components/post/CommentForm';
+import Comment from '../components/post/Comment';
 
 // MUI
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -139,6 +140,19 @@ class post extends Component {
 			UI: { loading },
 		} = this.props;
 
+		let commentsMarkup =
+			comments && !loading ? (
+				<div>
+					{comments.map((comment) => {
+						return <Comment key={comment.commentId} comment={comment} />;
+					})}
+				</div>
+			) : (
+				<div className={classes.progressContainerPosts}>
+					<CircularProgress />
+				</div>
+			);
+
 		const deleteButton = authenticated && this.isUsersPost() && (
 			<DeletePost postId={postId} />
 		);
@@ -199,11 +213,10 @@ class post extends Component {
 						</CardContent>
 					</div>
 				</Card>
+
 				<div className={classes.commentFormAndCommentsContainer}>
 					<CommentForm postId={postId} />
-					<div className={classes.commentContainerNew}>
-						<Comments comments={comments} replyHandle={userHandle} />
-					</div>
+					<div className={classes.commentContainerNew}>{commentsMarkup}</div>
 				</div>
 			</Fragment>
 		);

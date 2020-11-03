@@ -34,6 +34,13 @@ class Notifications extends Component {
 		this.setState({ anchorEl: null });
 	};
 
+	notificationClicked = (notificationClicked) => {
+		let unreadNotificationsId = [];
+		unreadNotificationsId.push(notificationClicked);
+		this.props.markNotificationsRead(unreadNotificationsId);
+		this.handleClose();
+	};
+
 	onMenuOpened = () => {
 		let unreadNotificationsIds = this.props.notifications
 			.filter((not) => !not.read)
@@ -103,6 +110,7 @@ class Notifications extends Component {
 						aria-owns={anchorEl ? 'simple-menu' : undefined}
 						aria-haspopup="true"
 						onClick={this.handleOpen}
+						onEntered={this.onMenuOpened}
 					>
 						{notificationsIcon}
 					</IconButton>
@@ -111,7 +119,6 @@ class Notifications extends Component {
 					anchorEl={anchorEl}
 					open={Boolean(anchorEl)}
 					onClose={this.handleClose}
-					onEntered={this.onMenuOpened}
 				>
 					{notificationsMarkup}
 				</Menu>
