@@ -16,7 +16,6 @@ import {
 	SET_POSTS_NEXT,
 	LOADING_MORE_POSTS,
 	DONE_LOADING_POSTS,
-	DELETE_COMMENT,
 } from '../types';
 import axios from 'axios';
 
@@ -285,18 +284,4 @@ export const getUserData = (userHandle) => (dispatch) => {
 
 export const clearErrors = () => (dispatch) => {
 	dispatch({ type: CLEAR_ERRORS });
-};
-
-export const deleteComment = (commentId) => (dispatch) => {
-	axios
-		.delete(`/comment/${commentId}`)
-		.then(() => {
-			dispatch({
-				type: DELETE_COMMENT,
-				payload: commentId,
-			});
-		})
-		.catch((err) => {
-			console.log(err);
-		});
 };

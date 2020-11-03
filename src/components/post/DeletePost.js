@@ -19,9 +19,8 @@ import { connect } from 'react-redux';
 const styles = {
 	deleteButton: {
 		position: 'absolute',
-		right: 10,
-		top: 15,
-		marginRight: '10px',
+		right: 0,
+		marginRight: '20px',
 	},
 };
 

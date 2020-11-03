@@ -12,7 +12,6 @@ import MuiLink from '@material-ui/core/Link';
 import Typography from '@material-ui/core/Typography';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Skeleton from '@material-ui/lab/Skeleton';
-import Button from '@material-ui/core/Button';
 
 // Mui Icons
 import LocationOn from '@material-ui/icons/LocationOn';
@@ -97,25 +96,6 @@ const styles = (theme) => ({
 		alignItems: 'center',
 		justifyContent: 'center',
 		marginTop: 60,
-	},
-	titleDiv: {
-		display: 'flex',
-		alignItems: 'center',
-	},
-	buttonsDiv: {
-		display: 'flex',
-		alignItems: 'center',
-		justifyContent: 'center',
-	},
-	welcomeText: {
-		marginBottom: 30,
-	},
-	login: {
-		marginRight: 20,
-	},
-	signupText: {
-		marginBottom: 10,
-		color: '#838383',
 	},
 });
 
@@ -223,45 +203,9 @@ class Profile extends Component {
 				</Paper>
 			) : (
 				<Paper className={classes.paper}>
-					<div className={classes.titleDiv}>
-						<Typography
-							variant="h6"
-							align="center"
-							className={classes.welcomeText}
-							color="primary"
-						>
-							Welcome to GRTFL - the gratitude-based social network!
-						</Typography>
-					</div>
-					<Typography
-						variant="body2"
-						align="center"
-						className={classes.signupText}
-					>
-						Log in or sign up to continue
+					<Typography variant="body2" align="center">
+						Sign Up or Log In
 					</Typography>
-					<div className={classes.buttonsDiv}>
-						<Button
-							component={Link}
-							to="/login"
-							variant="outlined"
-							color="primary"
-							size="small"
-							className={classes.login}
-						>
-							Login
-						</Button>
-						<Button
-							component={Link}
-							to="/signup"
-							color="primary"
-							variant="contained"
-							size="small"
-							className={classes.signup}
-						>
-							signup
-						</Button>
-					</div>
 				</Paper>
 			)
 		) : (

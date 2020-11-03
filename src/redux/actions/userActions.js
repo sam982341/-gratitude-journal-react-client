@@ -92,7 +92,6 @@ export const markNotificationsRead = (notificationsIds) => (dispatch) => {
 		.then((res) => {
 			dispatch({
 				type: MARK_NOTIFICATIONS_READ,
-				payload: notificationsIds,
 			});
 		})
 		.catch((err) => console.log(err));

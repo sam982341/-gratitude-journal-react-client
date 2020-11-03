@@ -3,16 +3,12 @@ import PropTypes from 'prop-types';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { Link } from 'react-router-dom';
 import dayjs from 'dayjs';
-import DeleteComment from './DeleteComment';
 
 // MUI
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Card from '@material-ui/core/Card';
 import CircularProgress from '@material-ui/core/CircularProgress';
-
-// Redux
-import { connect } from 'react-redux';
 
 const styles = (theme) => ({
 	...theme.global,
@@ -55,17 +51,7 @@ const styles = (theme) => ({
 
 class Comments extends Component {
 	render() {
-		const {
-			classes,
-			comments,
-			replyHandle,
-			user: { authenticated },
-		} = this.props;
-
-		const deleteButton = authenticated && this.isUsersPost() && (
-			<DeleteComment />
-		);
-
+		const { classes, comments, replyHandle } = this.props;
 		const commentsMarkup = !comments ? (
 			<div className={classes.progressContainerPosts}>
 				<CircularProgress size={50} />
@@ -103,7 +89,6 @@ class Comments extends Component {
 												replying to @{replyHandle}
 											</Typography>
 										</div>
-										{deleteButton}
 										<Typography variant="body2" className={classes.timeText}>
 											{dayjs(createdAt).format('h:mm a, MMMM DD YYYY')}
 										</Typography>
@@ -124,8 +109,4 @@ Comments.propTypes = {
 	comments: PropTypes.array.isRequired,
 };
 
-const mapStateToProps = (state) => ({
-	user: state.user,
-});
-
-export default connect(mapStateToProps)(withStyles(styles)(Comments));
+export default withStyles(styles)(Comments);

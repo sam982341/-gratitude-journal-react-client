@@ -12,7 +12,6 @@ import {
 	SET_POSTS_NEXT,
 	LOADING_MORE_POSTS,
 	DONE_LOADING_POSTS,
-	DELETE_COMMENT,
 } from '../types';
 
 const initialState = {
@@ -101,14 +100,6 @@ export default function (state = initialState, actions) {
 			return {
 				...state,
 				loadingMorePosts: false,
-			};
-		case DELETE_COMMENT:
-			let deleteCommentIndex = state.post.comments.findIndex(
-				(comment) => comment.commentId === actions.payload
-			);
-			state.post.comments.splice(deleteCommentIndex, 1);
-			return {
-				...state,
 			};
 		default:
 			return state;
