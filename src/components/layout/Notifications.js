@@ -34,11 +34,12 @@ class Notifications extends Component {
 		this.setState({ anchorEl: null });
 	};
 
-	notificationClicked = (notificationClicked) => {
-		let unreadNotificationsId = [];
-		unreadNotificationsId.push(notificationClicked);
-		this.props.markNotificationsRead(unreadNotificationsId);
-		this.handleClose();
+	onMenuOpened = () => {
+		let unreadNotificationsIds = this.props.notifications
+			.filter((not) => !not.read)
+			.map((not) => not.notificationId);
+
+		this.props.markNotificationsRead(unreadNotificationsIds);
 	};
 
 	render() {
@@ -80,12 +81,7 @@ class Notifications extends Component {
 
 					return (
 						<Link to={`/posts/${not.postId}`}>
-							<MenuItem
-								key={not.createdAt}
-								onClick={() => {
-									this.notificationClicked(not.notificationId);
-								}}
-							>
+							<MenuItem key={not.createdAt} onClick={this.handleClose}>
 								{icon}
 								<Typography color={iconColor} variant="body1">
 									{not.sender} {verb} your post {time}
@@ -115,6 +111,7 @@ class Notifications extends Component {
 					anchorEl={anchorEl}
 					open={Boolean(anchorEl)}
 					onClose={this.handleClose}
+					onEntered={this.onMenuOpened}
 				>
 					{notificationsMarkup}
 				</Menu>

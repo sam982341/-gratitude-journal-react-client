@@ -56,10 +56,7 @@ export default function (state = initialState, actions) {
 				),
 			};
 		case MARK_NOTIFICATIONS_READ:
-			let notificationIndex = state.notifications.findIndex((notification) => {
-				return notification.notificationId === actions.payload[0];
-			});
-			state.notifications[notificationIndex].read = true;
+			state.notifications.forEach((notification) => (notification.read = true));
 			return {
 				...state,
 			};
