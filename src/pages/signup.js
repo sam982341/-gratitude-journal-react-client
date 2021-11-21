@@ -36,10 +36,17 @@ class signup extends Component {
 		if (nextProps.UI.errors) {
 			this.setState({ errors: nextProps.UI.errors });
 		}
+		if (this.state.password.length < 6) {
+			this.setState({ errors: {password: "Password must be at least 6 characters."}  });
+		}
 	}
 
 	handleSubmit = (event) => {
 		event.preventDefault();
+		if (this.state.password.length < 6) {
+			this.setState({ errors: {password: "Password must be at least 6 characters."}  });
+		}
+
 		const newUserData = {
 			email: this.state.email,
 			password: this.state.password,
